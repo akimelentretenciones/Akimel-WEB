@@ -457,6 +457,7 @@ footer {
   .products-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
   .hero-btns { gap: 8px; }
   .btn { padding: 12px 20px; font-size: 13px; }
+  .fab svg { width: 100%; height: 100%; }
 }
 </style>
 </head>
@@ -567,11 +568,7 @@ footer {
   <p>© 2024 Entretenciones Akimel · Diversión garantizada para tu evento 🎉</p>
 </footer>
 
-<a class="fab" href="https://wa.me/56950803204" target="_blank" title="Cotiza por WhatsApp">
-  <svg viewBox="0 0 24 24" width="32" height="32" fill="white">
-    <path d="M17.6915026,2.50231971 C14.4744234,2.50231971 11.4744234,-0.497680288 8.25734262,-0.497680288 C3.73446707,-0.497680288 0.061,3.17606706 0.061,7.69894261 C0.061,9.92054263 0.584407163,12.0152382 1.61621722,13.8496251 L0.139180252,21.4282685 C-0.261555773,23.1951872 0.774068527,24.9152892 2.50898721,24.9152892 C2.67929457,24.9152892 2.85360294,24.896562 3.03191232,24.8562351 L10.6161716,23.3829254 C12.4505585,24.4155383 14.5452505,24.9389454 16.7668506,24.9389454 C21.2897261,24.9389454 24.9627417,21.2659299 24.9627417,16.7430544 C24.9627417,13.5259751 22.0088241,11.0082505 19.5027618,8.50218828 C22.6745537,7.97610547 25.0236062,5.50844496 25.0236062,2.56218297 Z"/>
-  </svg>
-</a>
+<a class="fab" href="https://wa.me/56950803204" target="_blank" title="Cotiza por WhatsApp">💬</a>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
@@ -581,25 +578,25 @@ const app = initializeApp({apiKey:"AIzaSyCwqFq4B3YOAT5q5LiKHCSYNQhQphviQHE",auth
 const db = getFirestore(app);
 
 const INVENTARIO = [
-  {id:1, nombre:'Tobogán Dinopoder', cat:'Inflable', total:1, precio:40000, img:'img/dinopoder.jpg'},
-  {id:2, nombre:'Tobogán Obstáculo Danger', cat:'Inflable', total:1, precio:40000, img:'img/obstaculo-danger.jpg'},
-  {id:3, nombre:'Tobogán Obstáculo Robot', cat:'Inflable', total:1, precio:40000, img:'img/obstaculo-robot.jpg'},
-  {id:4, nombre:'Tobogán Pirata', cat:'Inflable', total:1, precio:40000, img:'img/pirata.jpg'},
-  {id:5, nombre:'Tobogán Marvel', cat:'Inflable', total:1, precio:40000, img:'img/marvel.jpg'},
-  {id:6, nombre:'Tobogán Mario Bross', cat:'Inflable', total:1, precio:40000, img:'img/mario.jpg'},
-  {id:7, nombre:'Tobogán F1', cat:'Inflable', total:1, precio:40000, img:'img/f1.jpg'},
-  {id:8, nombre:'Tobogán Pro', cat:'Inflable', total:2, precio:40000, img:'img/pro.jpg'},
-  {id:9, nombre:'Tobogán Gold', cat:'Inflable', total:1, precio:40000, img:'img/gold.jpg'},
-  {id:10, nombre:'Tobogán Doble Castillo', cat:'Inflable', total:1, precio:40000, img:'img/doble-castillo.jpg'},
-  {id:11, nombre:'Avioncitos Voladores', cat:'Electrónico', total:1, precio:35000, img:'img/avioncitos.jpg'},
-  {id:12, nombre:'Carrusel Pony', cat:'Electrónico', total:1, precio:35000, img:'img/electronicos.jpg'},
-  {id:13, nombre:'Atrapa Ranita', cat:'Electrónico', total:2, precio:30000, img:'img/electronicos.jpg'},
-  {id:14, nombre:'Moto', cat:'Electrónico', total:2, precio:30000, img:'img/electronicos.jpg'},
-  {id:15, nombre:'Arcade', cat:'Electrónico', total:2, precio:30000, img:'img/electronicos.jpg'},
-  {id:16, nombre:'Disparadores', cat:'Electrónico', total:3, precio:25000, img:'img/electronicos.jpg'},
-  {id:17, nombre:'Taca Taca', cat:'Interior', total:4, precio:28000, img:'img/interior.jpg'},
-  {id:18, nombre:'Mesa de Hockey', cat:'Interior', total:4, precio:28000, img:'img/interior.jpg'},
-  {id:19, nombre:'Jenga', cat:'Interior', total:1, precio:20000, img:'img/interior.jpg'},
+  {id:1, nombre:'Tobogán Dinopoder', cat:'Inflable', total:1, precio:40000, img:'dinopoder.jpg'},
+  {id:2, nombre:'Tobogán Obstáculo Danger', cat:'Inflable', total:1, precio:40000, img:'obstaculo-peligro.jpg'},
+  {id:3, nombre:'Tobogán Obstáculo Robot', cat:'Inflable', total:1, precio:40000, img:'obstaculo-robot.jpg'},
+  {id:4, nombre:'Tobogán Pirata', cat:'Inflable', total:1, precio:40000, img:'pirata.jpg'},
+  {id:5, nombre:'Tobogán Marvel', cat:'Inflable', total:1, precio:40000, img:'Marvel.jpg'},
+  {id:6, nombre:'Tobogán Mario Bross', cat:'Inflable', total:1, precio:40000, img:'mario.jpg'},
+  {id:7, nombre:'Tobogán F1', cat:'Inflable', total:1, precio:40000, img:'f1.jpg'},
+  {id:8, nombre:'Tobogán Pro', cat:'Inflable', total:2, precio:40000, img:'pro.jpg'},
+  {id:9, nombre:'Tobogán Gold', cat:'Inflable', total:1, precio:40000, img:'gold.jpg'},
+  {id:10, nombre:'Tobogán Doble Castillo', cat:'Inflable', total:1, precio:40000, img:'doble-castillo.jpg'},
+  {id:11, nombre:'Avioncitos Voladores', cat:'Electrónico', total:1, precio:35000, img:'avioncitos.jpg'},
+  {id:12, nombre:'Carrusel Pony', cat:'Electrónico', total:1, precio:35000, img:'electronicos.jpg'},
+  {id:13, nombre:'Atrapa Ranita', cat:'Electrónico', total:2, precio:30000, img:'electronicos.jpg'},
+  {id:14, nombre:'Moto', cat:'Electrónico', total:2, precio:30000, img:'electronicos.jpg'},
+  {id:15, nombre:'Arcade', cat:'Electrónico', total:2, precio:30000, img:'electronicos.jpg'},
+  {id:16, nombre:'Disparadores', cat:'Electrónico', total:3, precio:25000, img:'electronicos.jpg'},
+  {id:17, nombre:'Taca Taca', cat:'Interior', total:4, precio:28000, img:'interior.jpg'},
+  {id:18, nombre:'Mesa de Hockey', cat:'Interior', total:4, precio:28000, img:'interior.jpg'},
+  {id:19, nombre:'Jenga', cat:'Interior', total:1, precio:20000, img:'interior.jpg'},
 ];
 
 let ARRIENDOS = [];
