@@ -1,0 +1,75 @@
+rules_version = '2';
+
+// ═══════════════════════════════════════════════════════════════════
+//  REGLAS DE SEGURIDAD FIRESTORE — Entretenciones Akimel
+// ═══════════════════════════════════════════════════════════════════
+//
+//  IMPORTANTE: Para que la página web pública (index.html) pueda
+//  mostrar la disponibilidad, necesita PERMISO DE LECTURA sobre la
+//  colección "arriendos".
+//
+//  Estas reglas permiten:
+//    ✓ LECTURA pública de "arriendos" (para calcular disponibilidad)
+//    ✗ ESCRITURA solo para usuarios autenticados (tu app interna)
+//    ✗ Todo lo demás bloqueado por defecto
+//
+//  Cómo aplicarlas:
+//    1. Ve a https://console.firebase.google.com
+//    2. Proyecto: base-de-datos-akimel-arriendos
+//    3. Firestore Database → pestaña "Reglas" (Rules)
+//    4. Reemplaza todo por el contenido de este archivo
+//    5. Clic en "Publicar" (Publish)
+//
+// ═══════════════════════════════════════════════════════════════════
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ─── ARRIENDOS ───────────────────────────────────────────────
+    // La web pública necesita LEER para mostrar disponibilidad.
+    // Solo tu app (usuarios logueados) puede crear/editar/borrar.
+    match /arriendos/{doc} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // ─── NOTIFICACIONES ──────────────────────────────────────────
+    // Privadas: solo usuarios autenticados (app interna).
+    match /notificaciones/{doc} {
+      allow read, write: if request.auth != null;
+    }
+
+    // ─── TODO LO DEMÁS ───────────────────────────────────────────
+    // Cualquier otra colección requiere autenticación.
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+//  NOTA SOBRE PRIVACIDAD
+// ═══════════════════════════════════════════════════════════════════
+//
+//  La web pública lee los arriendos para CONTAR cuántos juegos están
+//  ocupados por fecha. Aunque la web solo usa los campos "fecha",
+//  "equipos" y "estado", técnicamente la lectura pública expone TODOS
+//  los campos del documento (cliente, teléfono, monto, etc.).
+//
+//  ⚠️  Si tus documentos de arriendo contienen datos sensibles de
+//      clientes (teléfono, dirección, montos), considera una de estas
+//      opciones más seguras:
+//
+//  OPCIÓN A (recomendada a futuro):
+//    Crear una colección separada "disponibilidad_publica" que tu app
+//    actualice automáticamente con SOLO los datos necesarios
+//    (fecha + equipos ocupados), sin información de clientes.
+//
+//  OPCIÓN B:
+//    Usar Cloud Functions para exponer un endpoint que devuelva solo
+//    la disponibilidad calculada, sin exponer la colección completa.
+//
+//  Para empezar rápido, la lectura pública de "arriendos" funciona,
+//  pero ten presente esta consideración de privacidad.
+//
+// ═══════════════════════════════════════════════════════════════════
