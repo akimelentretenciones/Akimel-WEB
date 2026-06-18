@@ -190,8 +190,8 @@ header {
 
 .games-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
   margin-bottom: 40px;
 }
 
@@ -466,36 +466,10 @@ footer {
 <script>
 const GAMES = [
   {
-    name: 'Tobogán F1',
+    name: 'Tobogán Doble Castillo',
     type: 'Inflable',
-    desc: 'Emoción y velocidad con el clásico F1. Perfecto para fiestas y eventos.',
+    desc: 'El tobogán doble castillo Kids es la magia y diversión que tus peques merecen. Déjalos vivir una aventura llena de risas y emoción.',
     price: 40000,
-    fotos: [
-      'imagen/01_F1_reja_AKIMEL.jpg',
-      'imagen/03_F1_arboles_AKIMEL.jpg',
-      'imagen/04_F1_jardin_AKIMEL.jpg',
-      'imagen/05_F1_calle_AKIMEL.jpg',
-      'imagen/06_F1_patio_AKIMEL.jpg'
-    ]
-  },
-  {
-    name: 'Tobogán Dinopoder',
-    type: 'Inflable',
-    desc: 'Aventura prehistórica con el dinosaurio. ¡Los niños lo aman!',
-    price: 40000,
-    fotos: [
-      'imagen/dinopoder_1_marcado.jpg',
-      'imagen/dinopoder_2_marcado.jpg',
-      'imagen/dinopoder_3_marcado.jpg',
-      'imagen/dinopoder_4_marcado.jpg',
-      'imagen/dinopoder_5_marcado.jpeg'
-    ]
-  },
-  {
-    name: 'Doble Castillo',
-    type: 'Inflable',
-    desc: 'Castillo gigante con dos toboganes. ¡Diversión para todos!',
-    price: 45000,
     fotos: [
       'imagen/doble_castillo_1_marcado.jpg',
       'imagen/doble_castillo_2_marcado.jpg',
@@ -506,8 +480,8 @@ const GAMES = [
   {
     name: 'Tobogán Gold',
     type: 'Inflable',
-    desc: 'Lujo y elegancia en un tobogán. Ideal para eventos premium.',
-    price: 40000,
+    desc: 'Con el Tobogán Gold cada celebración es un golazo de diversión. Perfecto para tus momentos más especiales.',
+    price: 50000,
     fotos: [
       'imagen/oro_03_tacataca_AKIMEL.jpg',
       'imagen/oro_04_techado_AKIMEL.jpg',
@@ -517,10 +491,36 @@ const GAMES = [
     ]
   },
   {
+    name: 'Tobogán PRO',
+    type: 'Inflable',
+    desc: 'Nuestros toboganes PRO son la verdadera sensación. La nueva era de la diversión ha llegado.',
+    price: 60000,
+    fotos: [
+      'imagen/pro_02_cancha_frente_AKIMEL.jpg',
+      'imagen/pro_03_edificio_AKIMEL.jpg',
+      'imagen/pro_04_calle_AKIMEL.jpg',
+      'imagen/pro_05_cancha_AKIMEL.jpg',
+      'imagen/pro_06_pasaje_AKIMEL.jpg'
+    ]
+  },
+  {
+    name: 'Tobogán F1',
+    type: 'Inflable',
+    desc: 'Siente la velocidad con nuestro Tobogán Ferrari. Una experiencia llena de adrenalina con este espectacular inflable.',
+    price: 70000,
+    fotos: [
+      'imagen/01_F1_reja_AKIMEL.jpg',
+      'imagen/03_F1_arboles_AKIMEL.jpg',
+      'imagen/04_F1_jardin_AKIMEL.jpg',
+      'imagen/05_F1_calle_AKIMEL.jpg',
+      'imagen/06_F1_patio_AKIMEL.jpg'
+    ]
+  },
+  {
     name: 'Tobogán Mario Bross',
     type: 'Inflable',
-    desc: '¡Salta como Mario! Diversión nostálgica para toda la familia.',
-    price: 40000,
+    desc: 'El tobogán Mario Bross de la familia AKIMEL trae diversión al máximo. No dejes pasar esta aventura en tu evento.',
+    price: 75000,
     fotos: [
       'imagen/mario_01_pasto_montana_AKIMEL.jpg',
       'imagen/mario_02_gimnasio_AKIMEL.jpg',
@@ -532,8 +532,8 @@ const GAMES = [
   {
     name: 'Tobogán Marvel',
     type: 'Inflable',
-    desc: 'Superhéroes en acción. ¡El favorito de los niños!',
-    price: 40000,
+    desc: 'Deslízate hacia la acción con el increíble Tobogán Marvel. Todos tus héroes favoritos te acompañarán en una aventura épica.',
+    price: 75000,
     fotos: [
       'imagen/marvel_01_pasto_AKIMEL.jpg',
       'imagen/marvel_02_pasto_montana_AKIMEL.jpg',
@@ -543,23 +543,23 @@ const GAMES = [
     ]
   },
   {
-    name: 'Obstáculo Danger',
+    name: 'Tobogán Dinopoder',
     type: 'Inflable',
-    desc: 'Desafío extremo. ¡A ver quién llega al final!',
-    price: 40000,
+    desc: 'Nuestro impresionante dinosaurio inflable te entrega una experiencia llena de adrenalina que dejará a todos asombrados.',
+    price: 80000,
     fotos: [
-      'imagen/obstaculo_1_marcado.jpg',
-      'imagen/obstaculo_3_marcado.jpg',
-      'imagen/obstaculo_4_marcado.jpg',
-      'imagen/obstaculo_5_marcado.jpg',
-      'imagen/obstaculo_6_marcado.jpg'
+      'imagen/dinopoder_1_marcado.jpg',
+      'imagen/dinopoder_2_marcado.jpg',
+      'imagen/dinopoder_3_marcado.jpg',
+      'imagen/dinopoder_4_marcado.jpg',
+      'imagen/dinopoder_5_marcado.jpeg'
     ]
   },
   {
     name: 'Tobogán Pirata',
     type: 'Inflable',
-    desc: 'Aventura pirata en alta mar. Busca el tesoro mientras te diviertes.',
-    price: 40000,
+    desc: 'Nuestro impresionante Pirata inflable te entrega una experiencia llena de adrenalina y aventura pirata en alta mar.',
+    price: 80000,
     fotos: [
       'imagen/pirata_01_cancha_AKIMEL.jpg',
       'imagen/pirata_02_cielo_AKIMEL.jpg',
@@ -569,23 +569,23 @@ const GAMES = [
     ]
   },
   {
-    name: 'Tobogán Pro',
+    name: 'Tobogán Obstáculo Danger',
     type: 'Inflable',
-    desc: 'Versión profesional de máxima calidad. Para eventos grandes.',
-    price: 45000,
+    desc: 'Increíble tobogán obstáculo danger de 13 metros. Una pista de aventura que combina saltos, rampas, trepadas y zonas de competencia.',
+    price: 100000,
     fotos: [
-      'imagen/pro_02_cancha_frente_AKIMEL.jpg',
-      'imagen/pro_03_edificio_AKIMEL.jpg',
-      'imagen/pro_04_calle_AKIMEL.jpg',
-      'imagen/pro_05_cancha_AKIMEL.jpg',
-      'imagen/pro_06_pasaje_AKIMEL.jpg'
+      'imagen/obstaculo_1_marcado.jpg',
+      'imagen/obstaculo_3_marcado.jpg',
+      'imagen/obstaculo_4_marcado.jpg',
+      'imagen/obstaculo_5_marcado.jpg',
+      'imagen/obstaculo_6_marcado.jpg'
     ]
   },
   {
-    name: 'Obstáculo Robot',
+    name: 'Tobogán Obstáculo Robot',
     type: 'Inflable',
-    desc: 'Batalla robótica inflable. ¡Conquista todos los obstáculos!',
-    price: 40000,
+    desc: 'Increíble tobogán obstáculo robot de 13 metros. Una verdadera pista de aventura con saltos, rampas, trepadas y competencia.',
+    price: 100000,
     fotos: [
       'imagen/robot_obstaculo_1_marcado.jpg',
       'imagen/robot_obstaculo_2_marcado.jpg',
