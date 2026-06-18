@@ -237,6 +237,59 @@ header {
   font-weight: 600;
 }
 
+.gallery-controls {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  display: flex;
+  gap: 6px;
+}
+
+.gallery-btn {
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  transition: background 0.2s;
+  font-family: inherit;
+}
+
+.gallery-btn:hover { background: rgba(0,0,0,0.8); }
+
+.gallery-thumbs {
+  display: flex;
+  gap: 6px;
+  padding: 8px;
+  background: #f9f9f9;
+  overflow-x: auto;
+}
+
+.thumb {
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.thumb.active {
+  border-color: var(--blue);
+}
+
 .game-info {
   padding: 20px;
   flex: 1;
@@ -384,147 +437,7 @@ footer {
     <p class="section-desc">Selecciona el juego que te interesa y cotiza directamente por WhatsApp. Instalación profesional y diversión garantizada.</p>
   </div>
 
-  <div class="games-grid">
-    <div class="game-card">
-      <div class="game-gallery">
-        <img src="imagen/01_F1_reja_AKIMEL.jpg" alt="F1" class="game-img">
-        <div class="gallery-nav">1/5 fotos</div>
-      </div>
-      <div class="game-info">
-        <span class="game-type">Inflable</span>
-        <h3 class="game-name">Tobogán F1</h3>
-        <p class="game-desc">Emoción y velocidad con el clásico F1. Perfecto para fiestas y eventos.</p>
-        <div class="game-price">$40.000</div>
-        <a href="https://wa.me/56950803204?text=Hola!%20Me%20interesa%20el%20Tobogán%20F1.%20¿Está%20disponible?" class="game-btn" target="_blank">💬 Cotizar</a>
-      </div>
-    </div>
-
-    <div class="game-card">
-      <div class="game-gallery">
-        <img src="imagen/dinopoder_1_marcado.jpg" alt="Dinopoder" class="game-img">
-        <div class="gallery-nav">1/5 fotos</div>
-      </div>
-      <div class="game-info">
-        <span class="game-type">Inflable</span>
-        <h3 class="game-name">Tobogán Dinopoder</h3>
-        <p class="game-desc">Aventura prehistórica con el dinosaurio. ¡Los niños lo aman!</p>
-        <div class="game-price">$40.000</div>
-        <a href="https://wa.me/56950803204?text=Hola!%20Me%20interesa%20el%20Tobogán%20Dinopoder.%20¿Está%20disponible?" class="game-btn" target="_blank">💬 Cotizar</a>
-      </div>
-    </div>
-
-    <div class="game-card">
-      <div class="game-gallery">
-        <img src="imagen/doble_castillo_1_marcado.jpg" alt="Doble Castillo" class="game-img">
-        <div class="gallery-nav">1/4 fotos</div>
-      </div>
-      <div class="game-info">
-        <span class="game-type">Inflable</span>
-        <h3 class="game-name">Doble Castillo</h3>
-        <p class="game-desc">Castillo gigante con dos toboganes. ¡Diversión para todos!</p>
-        <div class="game-price">$45.000</div>
-        <a href="https://wa.me/56950803204?text=Hola!%20Me%20interesa%20el%20Doble%20Castillo.%20¿Está%20disponible?" class="game-btn" target="_blank">💬 Cotizar</a>
-      </div>
-    </div>
-
-    <div class="game-card">
-      <div class="game-gallery">
-        <img src="imagen/oro_02_calle_AKIMEL.jpg" alt="Gold" class="game-img">
-        <div class="gallery-nav">1/5 fotos</div>
-      </div>
-      <div class="game-info">
-        <span class="game-type">Inflable</span>
-        <h3 class="game-name">Tobogán Gold</h3>
-        <p class="game-desc">Lujo y elegancia en un tobogán. Ideal para eventos premium.</p>
-        <div class="game-price">$40.000</div>
-        <a href="https://wa.me/56950803204?text=Hola!%20Me%20interesa%20el%20Tobogán%20Gold.%20¿Está%20disponible?" class="game-btn" target="_blank">💬 Cotizar</a>
-      </div>
-    </div>
-
-    <div class="game-card">
-      <div class="game-gallery">
-        <img src="imagen/mario_01_pasto_montana_AKIMEL.jpg" alt="Mario" class="game-img">
-        <div class="gallery-nav">1/5 fotos</div>
-      </div>
-      <div class="game-info">
-        <span class="game-type">Inflable</span>
-        <h3 class="game-name">Tobogán Mario Bross</h3>
-        <p class="game-desc">¡Salta como Mario! Diversión nostálgica para toda la familia.</p>
-        <div class="game-price">$40.000</div>
-        <a href="https://wa.me/56950803204?text=Hola!%20Me%20interesa%20el%20Tobogán%20Mario%20Bross.%20¿Está%20disponible?" class="game-btn" target="_blank">💬 Cotizar</a>
-      </div>
-    </div>
-
-    <div class="game-card">
-      <div class="game-gallery">
-        <img src="imagen/marvel_01_pasto_AKIMEL.jpg" alt="Marvel" class="game-img">
-        <div class="gallery-nav">1/5 fotos</div>
-      </div>
-      <div class="game-info">
-        <span class="game-type">Inflable</span>
-        <h3 class="game-name">Tobogán Marvel</h3>
-        <p class="game-desc">Superhéroes en acción. ¡El favorito de los niños!</p>
-        <div class="game-price">$40.000</div>
-        <a href="https://wa.me/56950803204?text=Hola!%20Me%20interesa%20el%20Tobogán%20Marvel.%20¿Está%20disponible?" class="game-btn" target="_blank">💬 Cotizar</a>
-      </div>
-    </div>
-
-    <div class="game-card">
-      <div class="game-gallery">
-        <img src="imagen/obstaculo_1_marcado.jpg" alt="Obstáculo Danger" class="game-img">
-        <div class="gallery-nav">1/5 fotos</div>
-      </div>
-      <div class="game-info">
-        <span class="game-type">Inflable</span>
-        <h3 class="game-name">Obstáculo Danger</h3>
-        <p class="game-desc">Desafío extremo. ¡A ver quién llega al final!</p>
-        <div class="game-price">$40.000</div>
-        <a href="https://wa.me/56950803204?text=Hola!%20Me%20interesa%20el%20Obstáculo%20Danger.%20¿Está%20disponible?" class="game-btn" target="_blank">💬 Cotizar</a>
-      </div>
-    </div>
-
-    <div class="game-card">
-      <div class="game-gallery">
-        <img src="imagen/pirata_01_cancha_AKIMEL.jpg" alt="Pirata" class="game-img">
-        <div class="gallery-nav">1/5 fotos</div>
-      </div>
-      <div class="game-info">
-        <span class="game-type">Inflable</span>
-        <h3 class="game-name">Tobogán Pirata</h3>
-        <p class="game-desc">Aventura pirata en alta mar. Busca el tesoro mientras te diviertes.</p>
-        <div class="game-price">$40.000</div>
-        <a href="https://wa.me/56950803204?text=Hola!%20Me%20interesa%20el%20Tobogán%20Pirata.%20¿Está%20disponible?" class="game-btn" target="_blank">💬 Cotizar</a>
-      </div>
-    </div>
-
-    <div class="game-card">
-      <div class="game-gallery">
-        <img src="imagen/pro_02_cancha_frente_AKIMEL.jpg" alt="Pro" class="game-img">
-        <div class="gallery-nav">1/5 fotos</div>
-      </div>
-      <div class="game-info">
-        <span class="game-type">Inflable</span>
-        <h3 class="game-name">Tobogán Pro</h3>
-        <p class="game-desc">Versión profesional de máxima calidad. Para eventos grandes.</p>
-        <div class="game-price">$45.000</div>
-        <a href="https://wa.me/56950803204?text=Hola!%20Me%20interesa%20el%20Tobogán%20Pro.%20¿Está%20disponible?" class="game-btn" target="_blank">💬 Cotizar</a>
-      </div>
-    </div>
-
-    <div class="game-card">
-      <div class="game-gallery">
-        <img src="imagen/robot_obstaculo_1_marcado.jpg" alt="Robot Obstáculo" class="game-img">
-        <div class="gallery-nav">1/5 fotos</div>
-      </div>
-      <div class="game-info">
-        <span class="game-type">Inflable</span>
-        <h3 class="game-name">Obstáculo Robot</h3>
-        <p class="game-desc">Batalla robótica inflable. ¡Conquista todos los obstáculos!</p>
-        <div class="game-price">$40.000</div>
-        <a href="https://wa.me/56950803204?text=Hola!%20Me%20interesa%20el%20Obstáculo%20Robot.%20¿Está%20disponible?" class="game-btn" target="_blank">💬 Cotizar</a>
-      </div>
-    </div>
-  </div>
+  <div class="games-grid" id="gamesGrid"></div>
 </section>
 
 <section id="contacto" class="section" style="background: #f5f7fa; text-align: center;">
@@ -549,6 +462,209 @@ footer {
 </footer>
 
 <a class="fab" href="https://wa.me/56950803204" target="_blank" title="Cotiza por WhatsApp">💬</a>
+
+<script>
+const GAMES = [
+  {
+    name: 'Tobogán F1',
+    type: 'Inflable',
+    desc: 'Emoción y velocidad con el clásico F1. Perfecto para fiestas y eventos.',
+    price: 40000,
+    fotos: [
+      'imagen/01_F1_reja_AKIMEL.jpg',
+      'imagen/03_F1_arboles_AKIMEL.jpg',
+      'imagen/04_F1_jardin_AKIMEL.jpg',
+      'imagen/05_F1_calle_AKIMEL.jpg',
+      'imagen/06_F1_patio_AKIMEL.jpg'
+    ]
+  },
+  {
+    name: 'Tobogán Dinopoder',
+    type: 'Inflable',
+    desc: 'Aventura prehistórica con el dinosaurio. ¡Los niños lo aman!',
+    price: 40000,
+    fotos: [
+      'imagen/dinopoder_1_marcado.jpg',
+      'imagen/dinopoder_2_marcado.jpg',
+      'imagen/dinopoder_3_marcado.jpg',
+      'imagen/dinopoder_4_marcado.jpg',
+      'imagen/dinopoder_5_marcado.jpeg'
+    ]
+  },
+  {
+    name: 'Doble Castillo',
+    type: 'Inflable',
+    desc: 'Castillo gigante con dos toboganes. ¡Diversión para todos!',
+    price: 45000,
+    fotos: [
+      'imagen/doble_castillo_1_marcado.jpg',
+      'imagen/doble_castillo_2_marcado.jpg',
+      'imagen/doble_castillo_3_marcado.jpg',
+      'imagen/doble_castillo_4_marcado.jpg'
+    ]
+  },
+  {
+    name: 'Tobogán Gold',
+    type: 'Inflable',
+    desc: 'Lujo y elegancia en un tobogán. Ideal para eventos premium.',
+    price: 40000,
+    fotos: [
+      'imagen/oro_03_tacataca_AKIMEL.jpg',
+      'imagen/oro_04_techado_AKIMEL.jpg',
+      'imagen/oro_05_pirata_AKIMEL.jpg',
+      'imagen/oro_06_vereda_AKIMEL.jpg',
+      'imagen/oro_02_calle_AKIMEL.jpg'
+    ]
+  },
+  {
+    name: 'Tobogán Mario Bross',
+    type: 'Inflable',
+    desc: '¡Salta como Mario! Diversión nostálgica para toda la familia.',
+    price: 40000,
+    fotos: [
+      'imagen/mario_01_pasto_montana_AKIMEL.jpg',
+      'imagen/mario_02_gimnasio_AKIMEL.jpg',
+      'imagen/mario_04_arboles_AKIMEL.jpg',
+      'imagen/mario_06_calle_AKIMEL.jpg',
+      'imagen/mario_08_frente_AKIMEL.jpg'
+    ]
+  },
+  {
+    name: 'Tobogán Marvel',
+    type: 'Inflable',
+    desc: 'Superhéroes en acción. ¡El favorito de los niños!',
+    price: 40000,
+    fotos: [
+      'imagen/marvel_01_pasto_AKIMEL.jpg',
+      'imagen/marvel_02_pasto_montana_AKIMEL.jpg',
+      'imagen/marvel_04_piscina_AKIMEL.jpg',
+      'imagen/marvel_07_frente_AKIMEL.jpg',
+      'imagen/marvel_08_pasto_arboles_AKIMEL.jpg'
+    ]
+  },
+  {
+    name: 'Obstáculo Danger',
+    type: 'Inflable',
+    desc: 'Desafío extremo. ¡A ver quién llega al final!',
+    price: 40000,
+    fotos: [
+      'imagen/obstaculo_1_marcado.jpg',
+      'imagen/obstaculo_3_marcado.jpg',
+      'imagen/obstaculo_4_marcado.jpg',
+      'imagen/obstaculo_5_marcado.jpg',
+      'imagen/obstaculo_6_marcado.jpg'
+    ]
+  },
+  {
+    name: 'Tobogán Pirata',
+    type: 'Inflable',
+    desc: 'Aventura pirata en alta mar. Busca el tesoro mientras te diviertes.',
+    price: 40000,
+    fotos: [
+      'imagen/pirata_01_cancha_AKIMEL.jpg',
+      'imagen/pirata_02_cielo_AKIMEL.jpg',
+      'imagen/pirata_03_pasto_AKIMEL.jpg',
+      'imagen/pirata_04_tacataca_AKIMEL.jpg',
+      'imagen/pirata_05_duo_f1_AKIMEL.jpg'
+    ]
+  },
+  {
+    name: 'Tobogán Pro',
+    type: 'Inflable',
+    desc: 'Versión profesional de máxima calidad. Para eventos grandes.',
+    price: 45000,
+    fotos: [
+      'imagen/pro_02_cancha_frente_AKIMEL.jpg',
+      'imagen/pro_03_edificio_AKIMEL.jpg',
+      'imagen/pro_04_calle_AKIMEL.jpg',
+      'imagen/pro_05_cancha_AKIMEL.jpg',
+      'imagen/pro_06_pasaje_AKIMEL.jpg'
+    ]
+  },
+  {
+    name: 'Obstáculo Robot',
+    type: 'Inflable',
+    desc: 'Batalla robótica inflable. ¡Conquista todos los obstáculos!',
+    price: 40000,
+    fotos: [
+      'imagen/robot_obstaculo_1_marcado.jpg',
+      'imagen/robot_obstaculo_2_marcado.jpg',
+      'imagen/robot_obstaculo_4_marcado.jpg',
+      'imagen/robot_obstaculo_5_marcado.jpg',
+      'imagen/robot_obstaculo_6_marcado.jpg'
+    ]
+  }
+];
+
+function renderGames() {
+  const grid = document.getElementById('gamesGrid');
+  grid.innerHTML = GAMES.map((game, idx) => `
+    <div class="game-card">
+      <div class="game-gallery">
+        <img src="${game.fotos[0]}" alt="${game.name}" class="game-img" id="img-${idx}">
+        <div class="gallery-controls">
+          <button class="gallery-btn" onclick="prevImg(${idx})">❮</button>
+          <button class="gallery-btn" onclick="nextImg(${idx})">❯</button>
+        </div>
+        <div class="gallery-nav" id="nav-${idx}">1/${game.fotos.length}</div>
+      </div>
+      <div class="gallery-thumbs" id="thumbs-${idx}">
+        ${game.fotos.map((foto, i) => `
+          <div class="thumb active" onclick="setImg(${idx}, ${i})" id="thumb-${idx}-${i}">
+            <img src="${foto}" alt="Foto ${i+1}">
+          </div>
+        `).join('')}
+      </div>
+      <div class="game-info">
+        <span class="game-type">${game.type}</span>
+        <h3 class="game-name">${game.name}</h3>
+        <p class="game-desc">${game.desc}</p>
+        <div class="game-price">$${game.price.toLocaleString('es-CL')}</div>
+        <a href="https://wa.me/56950803204?text=Hola!%20Me%20interesa%20el%20${encodeURIComponent(game.name)}.%20¿Está%20disponible?" class="game-btn" target="_blank">💬 Cotizar</a>
+      </div>
+    </div>
+  `).join('');
+  
+  GAMES.forEach((game, idx) => {
+    window[`currentImg${idx}`] = 0;
+  });
+}
+
+function setImg(gameIdx, photoIdx) {
+  window[`currentImg${gameIdx}`] = photoIdx;
+  const game = GAMES[gameIdx];
+  document.getElementById(`img-${gameIdx}`).src = game.fotos[photoIdx];
+  document.getElementById(`nav-${gameIdx}`).textContent = `${photoIdx + 1}/${game.fotos.length}`;
+  updateThumbs(gameIdx);
+}
+
+function nextImg(gameIdx) {
+  const game = GAMES[gameIdx];
+  const next = (window[`currentImg${gameIdx}`] + 1) % game.fotos.length;
+  setImg(gameIdx, next);
+}
+
+function prevImg(gameIdx) {
+  const game = GAMES[gameIdx];
+  const prev = (window[`currentImg${gameIdx}`] - 1 + game.fotos.length) % game.fotos.length;
+  setImg(gameIdx, prev);
+}
+
+function updateThumbs(gameIdx) {
+  const current = window[`currentImg${gameIdx}`];
+  const game = GAMES[gameIdx];
+  game.fotos.forEach((_, i) => {
+    const thumb = document.getElementById(`thumb-${gameIdx}-${i}`);
+    if (i === current) {
+      thumb.classList.add('active');
+    } else {
+      thumb.classList.remove('active');
+    }
+  });
+}
+
+renderGames();
+</script>
 
 </body>
 </html>
