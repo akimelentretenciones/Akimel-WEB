@@ -582,14 +582,14 @@ header {
 .modal-gallery {
   width: 100%;
   height: 400px;
-  background: #f0f0f0;
+  background: #1a1a1a;
   position: relative;
 }
 
 .modal-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .modal-nav {
@@ -860,6 +860,7 @@ footer {
     <li><a href="#inicio">INICIO</a></li>
     <li><a href="#juegos">JUEGOS</a></li>
     <li><a href="#contacto">CONTACTO</a></li>
+    <li><a href="https://instagram.com/entretenciones_akimel" target="_blank">📷 INSTAGRAM</a></li>
   </ul>
   <div class="nav-right">
     <a class="btn-cta" href="https://wa.me/56950803204" target="_blank">💬 COTIZAR</a>
@@ -936,6 +937,14 @@ footer {
           <p>akimel.entretenciones@gmail.com</p>
         </div>
       </div>
+
+      <a href="https://instagram.com/entretenciones_akimel" target="_blank" class="contact-item" style="text-decoration:none;">
+        <div class="contact-icon">📷</div>
+        <div class="contact-text">
+          <h3>Instagram</h3>
+          <p style="color:var(--blue);">@entretenciones_akimel</p>
+        </div>
+      </a>
 
       <div class="contact-item">
         <div class="contact-icon">📍</div>
@@ -1206,28 +1215,28 @@ function renderGames() {
     }
     return `
     <div class="${cardClass}">
-      <div class="game-gallery">
+      <div class="game-gallery" onclick="openModal(${idx})" style="cursor:pointer;">
         ${badge}
         <img src="${game.fotos[0]}" alt="${game.name}" class="game-img" id="img-${idx}">
         <div class="gallery-controls">
-          <button class="gallery-btn" onclick="prevImg(${idx})">❮</button>
-          <button class="gallery-btn" onclick="nextImg(${idx})">❯</button>
+          <button class="gallery-btn" onclick="event.stopPropagation(); prevImg(${idx})">❮</button>
+          <button class="gallery-btn" onclick="event.stopPropagation(); nextImg(${idx})">❯</button>
         </div>
         <div class="gallery-nav" id="nav-${idx}">1/${game.fotos.length}</div>
       </div>
       <div class="gallery-thumbs" id="thumbs-${idx}">
         ${game.fotos.map((foto, i) => `
-          <div class="thumb active" onclick="setImg(${idx}, ${i})" id="thumb-${idx}-${i}">
+          <div class="thumb active" onclick="event.stopPropagation(); setImg(${idx}, ${i})" id="thumb-${idx}-${i}">
             <img src="${foto}" alt="Foto ${i+1}">
           </div>
         `).join('')}
       </div>
-      <div class="game-info">
+      <div class="game-info" onclick="openModal(${idx})" style="cursor:pointer;">
         <span class="game-type">${game.type}</span>
-        <h3 class="game-name" onclick="openModal(${idx})">${game.name}</h3>
+        <h3 class="game-name">${game.name}</h3>
         <p class="game-desc">${game.desc}</p>
         <div class="game-price">${game.price.toLocaleString('es-CL')}</div>
-        <a href="https://wa.me/56950803204?text=Hola!%20Me%20interesa%20el%20${encodeURIComponent(game.name)}${hayFecha ? '%20para%20el%20' + encodeURIComponent(FECHA_SELECCIONADA) : ''}.%20¿Está%20disponible?" class="game-btn" target="_blank">💬 Cotizar</a>
+        <a href="https://wa.me/56950803204?text=Hola!%20Me%20interesa%20el%20${encodeURIComponent(game.name)}${hayFecha ? '%20para%20el%20' + encodeURIComponent(FECHA_SELECCIONADA) : ''}.%20¿Está%20disponible?" class="game-btn" target="_blank" onclick="event.stopPropagation()">💬 Cotizar</a>
       </div>
     </div>
   `;
