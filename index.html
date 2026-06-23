@@ -903,7 +903,6 @@ footer {
     </div>
     <div class="cal-grid" id="calGrid"></div>
     <div class="cal-selected-info" id="calSelectedInfo" style="display:none;"></div>
-    <div id="diagFirebase" style="margin-top:16px;padding:12px;border-radius:8px;background:#fff8e1;border:1px solid #ffc220;font-size:12px;font-family:monospace;color:#5d4037;line-height:1.5;">⏳ Conectando con Firebase...</div>
   </div>
 
   <div id="disponibilidadHeader" style="display:none;">
@@ -1433,6 +1432,15 @@ function renderCalendario() {
   }
   
   grid.innerHTML = html;
+
+  // Atenuar flecha de retroceder si estamos en el mes actual
+  const hoyMes = new Date();
+  const btnPrev = document.querySelector('.cal-arrow');
+  if (btnPrev) {
+    const enMesActual = (CAL_YEAR === hoyMes.getFullYear() && CAL_MONTH <= hoyMes.getMonth());
+    btnPrev.style.opacity = enMesActual ? '0.35' : '1';
+    btnPrev.style.cursor = enMesActual ? 'not-allowed' : 'pointer';
+  }
 }
 
 // ===== SELECCIONAR FECHA =====
@@ -1458,6 +1466,17 @@ window.seleccionarFecha = function(fechaStr, dia) {
 
 // ===== CAMBIAR MES =====
 window.cambiarMes = function(delta) {
+  const hoy = new Date();
+  const mesActual = hoy.getMonth();
+  const anioActual = hoy.getFullYear();
+
+  // No permitir retroceder antes del mes actual
+  if (delta < 0) {
+    if (CAL_YEAR < anioActual || (CAL_YEAR === anioActual && CAL_MONTH <= mesActual)) {
+      return; // Ya estamos en el mes actual, no retroceder
+    }
+  }
+
   CAL_MONTH += delta;
   if (CAL_MONTH < 0) { CAL_MONTH = 11; CAL_YEAR--; }
   if (CAL_MONTH > 11) { CAL_MONTH = 0; CAL_YEAR++; }
@@ -1466,7 +1485,6 @@ window.cambiarMes = function(delta) {
 
 // ===== CONECTAR FIREBASE (escucha en tiempo real) =====
 function conectarFirebase() {
-  const diag = document.getElementById('diagFirebase');
   try {
     const arriendosRef = collection(db, 'arriendos');
     onSnapshot(arriendosRef, (snapshot) => {
@@ -1475,48 +1493,15 @@ function conectarFirebase() {
         ARRIENDOS.push({ id: doc.id, ...doc.data() });
       });
       console.log('✅ Arriendos cargados:', ARRIENDOS.length);
-      console.log('Ejemplo de arriendo:', ARRIENDOS[0]);
-
-      // Panel de diagnóstico visible
-      if (diag) {
-        if (ARRIENDOS.length === 0) {
-          diag.style.background = '#ffebee';
-          diag.style.borderColor = '#de1c24';
-          diag.innerHTML = '⚠️ Firebase conectó pero NO hay arriendos (0 documentos leídos). Revisa las reglas de Firestore o si la colección se llama "arriendos".';
-        } else {
-          const ej = ARRIENDOS[0];
-          const campos = Object.keys(ej).join(', ');
-          const fechasUnicas = [...new Set(ARRIENDOS.map(a => a.fecha).filter(Boolean))].slice(0, 8);
-          diag.style.background = '#e8f5e9';
-          diag.style.borderColor = '#5fb446';
-          diag.innerHTML = `✅ Firebase OK — ${ARRIENDOS.length} arriendos leídos.<br>` +
-            `<b>Campos:</b> ${campos}<br>` +
-            `<b>Ejemplo fecha:</b> "${ej.fecha}" · <b>equipos:</b> "${ej.equipos || ej.equipo || '(sin campo equipos)'}"<br>` +
-            `<b>Primeras fechas:</b> ${fechasUnicas.join(' | ')}`;
-        }
-      }
-
       // Actualizar vista si hay fecha seleccionada
       if (FECHA_SELECCIONADA) {
         renderGames();
       }
     }, (error) => {
       console.warn('⚠️ Error al conectar Firebase:', error);
-      if (diag) {
-        diag.style.background = '#ffebee';
-        diag.style.borderColor = '#de1c24';
-        diag.innerHTML = `❌ Error de Firebase: ${error.code || error.message}<br>` +
-          `Probablemente las <b>reglas de Firestore</b> no permiten lectura pública. ` +
-          `Ve a Firebase Console → Firestore → Reglas y permite "allow read: if true;" para la colección arriendos.`;
-      }
     });
   } catch (e) {
     console.warn('⚠️ No se pudo conectar a Firebase:', e);
-    if (diag) {
-      diag.style.background = '#ffebee';
-      diag.style.borderColor = '#de1c24';
-      diag.innerHTML = `❌ No se pudo iniciar Firebase: ${e.message}`;
-    }
   }
 }
 
