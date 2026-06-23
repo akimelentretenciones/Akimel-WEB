@@ -902,6 +902,7 @@ footer {
     </div>
     <div class="cal-grid" id="calGrid"></div>
     <div class="cal-selected-info" id="calSelectedInfo" style="display:none;"></div>
+    <div id="diagFirebase" style="margin-top:16px;padding:12px;border-radius:8px;background:#fff8e1;border:1px solid #ffc220;font-size:12px;font-family:monospace;color:#5d4037;line-height:1.5;">⏳ Conectando con Firebase...</div>
   </div>
 
   <div id="disponibilidadHeader" style="display:none;">
@@ -1075,11 +1076,11 @@ const GAMES = [
     desc: 'Con el Tobogán Gold cada celebración es un golazo de diversión. Perfecto para tus momentos más especiales, donde la emoción no para.',
     price: 50000,
     fotos: [
-      'imagen/oro_05_pirata_AKIMEL.jpg',
-      'imagen/oro_06_vereda_AKIMEL.jpg',
-      'imagen/oro_04_techado_AKIMEL.jpg',
-      'imagen/oro_02_calle_AKIMEL.jpg',
-      'imagen/oro_03_tacataca_AKIMEL.jpg'
+      'imagen/gold_05_pirata_AKIMEL.jpg',
+      'imagen/gold_06_vereda_AKIMEL.jpg',
+      'imagen/gold_04_techado_AKIMEL.jpg',
+      'imagen/gold_02_calle_AKIMEL.jpg',
+      'imagen/gold_03_tacataca_AKIMEL.jpg'
     ]
   },
   {
@@ -1456,6 +1457,7 @@ window.cambiarMes = function(delta) {
 
 // ===== CONECTAR FIREBASE (escucha en tiempo real) =====
 function conectarFirebase() {
+  const diag = document.getElementById('diagFirebase');
   try {
     const arriendosRef = collection(db, 'arriendos');
     onSnapshot(arriendosRef, (snapshot) => {
@@ -1464,16 +1466,48 @@ function conectarFirebase() {
         ARRIENDOS.push({ id: doc.id, ...doc.data() });
       });
       console.log('✅ Arriendos cargados:', ARRIENDOS.length);
-      // Si hay fecha seleccionada, actualizar vista
+      console.log('Ejemplo de arriendo:', ARRIENDOS[0]);
+
+      // Panel de diagnóstico visible
+      if (diag) {
+        if (ARRIENDOS.length === 0) {
+          diag.style.background = '#ffebee';
+          diag.style.borderColor = '#de1c24';
+          diag.innerHTML = '⚠️ Firebase conectó pero NO hay arriendos (0 documentos leídos). Revisa las reglas de Firestore o si la colección se llama "arriendos".';
+        } else {
+          const ej = ARRIENDOS[0];
+          const campos = Object.keys(ej).join(', ');
+          const fechasUnicas = [...new Set(ARRIENDOS.map(a => a.fecha).filter(Boolean))].slice(0, 8);
+          diag.style.background = '#e8f5e9';
+          diag.style.borderColor = '#5fb446';
+          diag.innerHTML = `✅ Firebase OK — ${ARRIENDOS.length} arriendos leídos.<br>` +
+            `<b>Campos:</b> ${campos}<br>` +
+            `<b>Ejemplo fecha:</b> "${ej.fecha}" · <b>equipos:</b> "${ej.equipos || ej.equipo || '(sin campo equipos)'}"<br>` +
+            `<b>Primeras fechas:</b> ${fechasUnicas.join(' | ')}`;
+        }
+      }
+
+      // Actualizar vista si hay fecha seleccionada
       if (FECHA_SELECCIONADA) {
         renderGames();
       }
     }, (error) => {
       console.warn('⚠️ Error al conectar Firebase:', error);
-      // Si falla, igual mostramos todos los juegos
+      if (diag) {
+        diag.style.background = '#ffebee';
+        diag.style.borderColor = '#de1c24';
+        diag.innerHTML = `❌ Error de Firebase: ${error.code || error.message}<br>` +
+          `Probablemente las <b>reglas de Firestore</b> no permiten lectura pública. ` +
+          `Ve a Firebase Console → Firestore → Reglas y permite "allow read: if true;" para la colección arriendos.`;
+      }
     });
   } catch (e) {
     console.warn('⚠️ No se pudo conectar a Firebase:', e);
+    if (diag) {
+      diag.style.background = '#ffebee';
+      diag.style.borderColor = '#de1c24';
+      diag.innerHTML = `❌ No se pudo iniciar Firebase: ${e.message}`;
+    }
   }
 }
 
