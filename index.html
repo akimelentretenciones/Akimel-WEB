@@ -1517,7 +1517,14 @@ window.prevModalImg = prevModalImg;
 
 renderCalendario();
 conectarFirebase();
-renderGames();</script>
+
+// Seleccionar automáticamente el día de hoy al cargar
+(function seleccionarHoyInicial() {
+  const hoy = new Date();
+  const dia = hoy.getDate();
+  const fechaStr = String(dia).padStart(2, '0') + '/' + String(hoy.getMonth() + 1).padStart(2, '0') + '/' + hoy.getFullYear();
+  seleccionarFecha(fechaStr, dia);
+})();</script>
 
 </body>
 </html>
