@@ -193,19 +193,175 @@ header {
   margin: 0 auto;
 }
 
-/* CALENDARIO PLACEHOLDER */
-.calendar-placeholder {
+/* CALENDARIO FUNCIONAL */
+.calendar-box {
   background: #fff;
-  border-radius: 12px;
-  padding: 20px;
+  border-radius: 16px;
+  padding: 28px;
   margin-bottom: 40px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  text-align: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.calendar-placeholder p {
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.cal-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  text-transform: capitalize;
+}
+
+.cal-arrow {
+  background: var(--blue);
+  color: #fff;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  font-weight: 700;
+}
+
+.cal-arrow:hover { background: var(--blue-dark); transform: scale(1.05); }
+
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.cal-weekday {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
   color: var(--text3);
-  margin-bottom: 12px;
+  padding: 6px 0;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.cal-day {
+  aspect-ratio: 1;
+  border: none;
+  background: #f0f4f8;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.cal-day:hover:not(.empty):not(.past) {
+  background: var(--blue);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.cal-day.empty {
+  background: transparent;
+  cursor: default;
+}
+
+.cal-day.past {
+  color: #c5d0db;
+  cursor: not-allowed;
+  background: #f8fafb;
+}
+
+.cal-day.selected {
+  background: var(--blue);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0,113,206,0.4);
+}
+
+.cal-day.today {
+  border: 2px solid var(--orange);
+}
+
+.cal-loading {
+  text-align: center;
+  padding: 20px;
+  color: var(--text3);
+  font-size: 14px;
+}
+
+.cal-selected-info {
+  text-align: center;
+  margin-top: 20px;
+  padding: 14px;
+  background: rgba(0,113,206,0.06);
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--blue);
+}
+
+.disponibilidad-titulo {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text);
+  margin: 30px 0 10px;
+}
+
+.disponibilidad-sub {
+  text-align: center;
+  font-size: 14px;
+  color: var(--text3);
+  margin-bottom: 30px;
+}
+
+.badge-disponible {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--green);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  z-index: 5;
+}
+
+.badge-agotado {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--red);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  z-index: 5;
+}
+
+.game-card.agotado {
+  opacity: 0.55;
+  filter: grayscale(0.5);
 }
 
 .games-grid {
@@ -729,9 +885,28 @@ footer {
     <p class="section-desc">Selecciona un juego para ver todas sus fotos y detalles. Cotiza directamente por WhatsApp.</p>
   </div>
 
-  <div class="calendar-placeholder">
-    <p style="font-weight: 600; color: var(--text);">📅 Calendario de Disponibilidad</p>
-    <p>Próximamente: Selecciona una fecha y ve solo los juegos disponibles</p>
+  <div class="calendar-box">
+    <div class="cal-header">
+      <button class="cal-arrow" onclick="cambiarMes(-1)">❮</button>
+      <div class="cal-title" id="calTitulo">Cargando...</div>
+      <button class="cal-arrow" onclick="cambiarMes(1)">❯</button>
+    </div>
+    <div class="cal-weekdays">
+      <div class="cal-weekday">Lun</div>
+      <div class="cal-weekday">Mar</div>
+      <div class="cal-weekday">Mié</div>
+      <div class="cal-weekday">Jue</div>
+      <div class="cal-weekday">Vie</div>
+      <div class="cal-weekday">Sáb</div>
+      <div class="cal-weekday">Dom</div>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+    <div class="cal-selected-info" id="calSelectedInfo" style="display:none;"></div>
+  </div>
+
+  <div id="disponibilidadHeader" style="display:none;">
+    <h3 class="disponibilidad-titulo" id="dispTitulo">Juegos Disponibles</h3>
+    <p class="disponibilidad-sub" id="dispSub">Selecciona una fecha en el calendario</p>
   </div>
 
   <div class="games-grid" id="gamesGrid"></div>
@@ -816,7 +991,71 @@ footer {
   </div>
 </div>
 
-<script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+
+const firebaseApp = initializeApp({
+  apiKey:"AIzaSyCwqFq4B3YOAT5q5LiKHCSYNQhQphviQHE",
+  authDomain:"base-de-datos-akimel-arriendos.firebaseapp.com",
+  projectId:"base-de-datos-akimel-arriendos",
+  storageBucket:"base-de-datos-akimel-arriendos.firebasestorage.app",
+  messagingSenderId:"515460008647",
+  appId:"1:515460008647:web:6c6b72c53c31312b12cce2"
+});
+const db = getFirestore(firebaseApp);
+
+// Inventario con totales (cantidad de unidades de cada juego)
+const INVENTARIO_TOTAL = {
+  'Tobogán Doble Castillo': 1,
+  'Tobogán Gold': 1,
+  'Tobogán PRO': 2,
+  'Tobogán F1': 1,
+  'Tobogán Mario Bross': 1,
+  'Tobogán Marvel': 1,
+  'Tobogán Dinopoder': 1,
+  'Tobogán Pirata': 1,
+  'Tobogán Obstáculo Danger': 1,
+  'Tobogán Obstáculo Robot': 1
+};
+
+// Mapeo de palabras clave para reconocer juegos en el texto de "equipos"
+const MAPEO_JUEGOS = {
+  'danger': 'Tobogán Obstáculo Danger',
+  'obstaculo danger': 'Tobogán Obstáculo Danger',
+  'obstáculo danger': 'Tobogán Obstáculo Danger',
+  'robot': 'Tobogán Obstáculo Robot',
+  'obstaculo robot': 'Tobogán Obstáculo Robot',
+  'obstáculo robot': 'Tobogán Obstáculo Robot',
+  'pirata': 'Tobogán Pirata',
+  'dino': 'Tobogán Dinopoder',
+  'dinosaurio': 'Tobogán Dinopoder',
+  'dinopoder': 'Tobogán Dinopoder',
+  'marvel': 'Tobogán Marvel',
+  'avengers': 'Tobogán Marvel',
+  'mario': 'Tobogán Mario Bross',
+  'mario bross': 'Tobogán Mario Bross',
+  'mario bros': 'Tobogán Mario Bross',
+  'f1': 'Tobogán F1',
+  'ferrari': 'Tobogán F1',
+  'pro': 'Tobogán PRO',
+  'tobogan pro': 'Tobogán PRO',
+  'tobogán pro': 'Tobogán PRO',
+  'gold': 'Tobogán Gold',
+  'talbot': 'Tobogán Gold',
+  'doble castillo': 'Tobogán Doble Castillo',
+  'castillo doble': 'Tobogán Doble Castillo',
+  'castillo': 'Tobogán Doble Castillo'
+};
+
+let ARRIENDOS = [];
+let CAL_YEAR = new Date().getFullYear();
+let CAL_MONTH = new Date().getMonth();
+let FECHA_SELECCIONADA = null;
+
+const MESES_FULL = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const DIAS_ORD = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+
 const GAMES = [
   {
     name: 'Tobogán Doble Castillo',
@@ -954,9 +1193,20 @@ let currentPhotoIdx = 0;
 
 function renderGames() {
   const grid = document.getElementById('gamesGrid');
-  grid.innerHTML = GAMES.map((game, idx) => `
-    <div class="game-card">
+  grid.innerHTML = GAMES.map((game, idx) => {
+    const disponible = juegoDisponible(game.name);
+    const hayFecha = FECHA_SELECCIONADA !== null;
+    const cardClass = (hayFecha && !disponible) ? 'game-card agotado' : 'game-card';
+    let badge = '';
+    if (hayFecha) {
+      badge = disponible
+        ? '<div class="badge-disponible">✓ Disponible</div>'
+        : '<div class="badge-agotado">✕ Reservado</div>';
+    }
+    return `
+    <div class="${cardClass}">
       <div class="game-gallery">
+        ${badge}
         <img src="${game.fotos[0]}" alt="${game.name}" class="game-img" id="img-${idx}">
         <div class="gallery-controls">
           <button class="gallery-btn" onclick="prevImg(${idx})">❮</button>
@@ -976,10 +1226,11 @@ function renderGames() {
         <h3 class="game-name" onclick="openModal(${idx})">${game.name}</h3>
         <p class="game-desc">${game.desc}</p>
         <div class="game-price">${game.price.toLocaleString('es-CL')}</div>
-        <a href="https://wa.me/56950803204?text=Hola!%20Me%20interesa%20el%20${encodeURIComponent(game.name)}.%20¿Está%20disponible?" class="game-btn" target="_blank">💬 Cotizar</a>
+        <a href="https://wa.me/56950803204?text=Hola!%20Me%20interesa%20el%20${encodeURIComponent(game.name)}${hayFecha ? '%20para%20el%20' + encodeURIComponent(FECHA_SELECCIONADA) : ''}.%20¿Está%20disponible?" class="game-btn" target="_blank">💬 Cotizar</a>
       </div>
     </div>
-  `).join('');
+  `;
+  }).join('');
   
   GAMES.forEach((game, idx) => {
     window[`currentImg${idx}`] = 0;
@@ -1081,8 +1332,164 @@ document.getElementById('gameModal').addEventListener('click', (e) => {
   }
 });
 
-renderGames();
-</script>
+// ===== ESTANDARIZAR EQUIPOS (reconocer juegos en texto libre) =====
+function estandarizarEquipos(equipos) {
+  if (!equipos) return [];
+  let texto = equipos.replace(/\s+y\s+/gi, ',').replace(/\s*\+\s*/g, ',');
+  const partes = texto.split(/[,\/]/);
+  const keysOrdenados = Object.keys(MAPEO_JUEGOS).sort((a, b) => b.length - a.length);
+  const resultado = [];
+  for (let parte of partes) {
+    parte = parte.trim().toLowerCase();
+    if (!parte) continue;
+    let encontrado = null;
+    for (const k of keysOrdenados) {
+      if (parte === k) { encontrado = MAPEO_JUEGOS[k]; break; }
+    }
+    if (!encontrado) {
+      for (const k of keysOrdenados) {
+        const re = new RegExp('(?:^|\\s)' + k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?:\\s|$)', 'i');
+        if (re.test(parte)) { encontrado = MAPEO_JUEGOS[k]; break; }
+      }
+    }
+    if (encontrado) resultado.push(encontrado);
+  }
+  return resultado;
+}
+
+// ===== CALCULAR JUEGOS USADOS EN UNA FECHA =====
+function calcularUsadosFecha(fechaStr) {
+  const arriendosDia = ARRIENDOS.filter(a =>
+    a.fecha === fechaStr && a.estado !== 'Cancelado'
+  );
+  const usados = {};
+  for (const a of arriendosDia) {
+    const juegos = estandarizarEquipos(a.equipos || '');
+    for (const nombre of juegos) {
+      usados[nombre] = (usados[nombre] || 0) + 1;
+    }
+  }
+  return usados;
+}
+
+// ===== VERIFICAR DISPONIBILIDAD DE UN JUEGO EN FECHA SELECCIONADA =====
+function juegoDisponible(nombreJuego) {
+  if (!FECHA_SELECCIONADA) return true; // Sin fecha = mostrar todos
+  const usados = calcularUsadosFecha(FECHA_SELECCIONADA);
+  const total = INVENTARIO_TOTAL[nombreJuego] || 1;
+  const ocupados = usados[nombreJuego] || 0;
+  return (total - ocupados) > 0;
+}
+
+// ===== RENDERIZAR CALENDARIO =====
+function renderCalendario() {
+  document.getElementById('calTitulo').textContent = MESES_FULL[CAL_MONTH] + ' ' + CAL_YEAR;
+  const grid = document.getElementById('calGrid');
+  
+  const primerDia = new Date(CAL_YEAR, CAL_MONTH, 1);
+  const ultimoDia = new Date(CAL_YEAR, CAL_MONTH + 1, 0);
+  const diasEnMes = ultimoDia.getDate();
+  
+  // Día de la semana del primer día (0=Dom → ajustar a Lun=0)
+  let primerDiaSemana = primerDia.getDay();
+  primerDiaSemana = primerDiaSemana === 0 ? 6 : primerDiaSemana - 1;
+  
+  const hoy = new Date();
+  hoy.setHours(0, 0, 0, 0);
+  
+  let html = '';
+  
+  // Días vacíos al inicio
+  for (let i = 0; i < primerDiaSemana; i++) {
+    html += '<div class="cal-day empty"></div>';
+  }
+  
+  // Días del mes
+  for (let dia = 1; dia <= diasEnMes; dia++) {
+    const fechaDia = new Date(CAL_YEAR, CAL_MONTH, dia);
+    fechaDia.setHours(0, 0, 0, 0);
+    const esPasado = fechaDia < hoy;
+    const esHoy = fechaDia.getTime() === hoy.getTime();
+    const fechaStr = String(dia).padStart(2, '0') + '/' + String(CAL_MONTH + 1).padStart(2, '0') + '/' + CAL_YEAR;
+    const esSeleccionado = fechaStr === FECHA_SELECCIONADA;
+    
+    let clases = 'cal-day';
+    if (esPasado) clases += ' past';
+    if (esHoy) clases += ' today';
+    if (esSeleccionado) clases += ' selected';
+    
+    const onclick = esPasado ? '' : `onclick="seleccionarFecha('${fechaStr}', ${dia})"`;
+    html += `<button class="${clases}" ${onclick}>${dia}</button>`;
+  }
+  
+  grid.innerHTML = html;
+}
+
+// ===== SELECCIONAR FECHA =====
+window.seleccionarFecha = function(fechaStr, dia) {
+  FECHA_SELECCIONADA = fechaStr;
+  
+  const dt = new Date(CAL_YEAR, CAL_MONTH, dia);
+  const diaNom = DIAS_ORD[dt.getDay() === 0 ? 6 : dt.getDay() - 1];
+  const mesNom = MESES_FULL[CAL_MONTH];
+  
+  const info = document.getElementById('calSelectedInfo');
+  info.style.display = 'block';
+  info.innerHTML = `📅 Mostrando disponibilidad para: <strong>${diaNom} ${dia} de ${mesNom}, ${CAL_YEAR}</strong>`;
+  
+  const dispHeader = document.getElementById('disponibilidadHeader');
+  dispHeader.style.display = 'block';
+  document.getElementById('dispTitulo').textContent = `Juegos Disponibles`;
+  document.getElementById('dispSub').textContent = `${diaNom} ${dia} de ${mesNom} — Toca un juego para ver más`;
+  
+  renderCalendario();
+  renderGames();
+};
+
+// ===== CAMBIAR MES =====
+window.cambiarMes = function(delta) {
+  CAL_MONTH += delta;
+  if (CAL_MONTH < 0) { CAL_MONTH = 11; CAL_YEAR--; }
+  if (CAL_MONTH > 11) { CAL_MONTH = 0; CAL_YEAR++; }
+  renderCalendario();
+};
+
+// ===== CONECTAR FIREBASE (escucha en tiempo real) =====
+function conectarFirebase() {
+  try {
+    const arriendosRef = collection(db, 'arriendos');
+    onSnapshot(arriendosRef, (snapshot) => {
+      ARRIENDOS = [];
+      snapshot.forEach((doc) => {
+        ARRIENDOS.push({ id: doc.id, ...doc.data() });
+      });
+      console.log('✅ Arriendos cargados:', ARRIENDOS.length);
+      // Si hay fecha seleccionada, actualizar vista
+      if (FECHA_SELECCIONADA) {
+        renderGames();
+      }
+    }, (error) => {
+      console.warn('⚠️ Error al conectar Firebase:', error);
+      // Si falla, igual mostramos todos los juegos
+    });
+  } catch (e) {
+    console.warn('⚠️ No se pudo conectar a Firebase:', e);
+  }
+}
+
+// ===== EXPONER FUNCIONES AL SCOPE GLOBAL (necesario en módulos ES6) =====
+window.setImg = setImg;
+window.nextImg = nextImg;
+window.prevImg = prevImg;
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.setModalImg = setModalImg;
+window.nextModalImg = nextModalImg;
+window.prevModalImg = prevModalImg;
+
+renderCalendario();
+conectarFirebase();
+renderGames();</script>
 
 </body>
 </html>
