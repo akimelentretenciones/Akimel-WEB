@@ -1042,7 +1042,7 @@ footer {
     <li><a href="https://instagram.com/entretenciones_akimel" target="_blank">📷 INSTAGRAM</a></li>
   </ul>
   <div class="nav-right">
-    <a class="btn-cta" href="https://wa.me/56950803204" target="_blank"><span class="wsp-icon"></span>COTIZAR</a>
+    <a class="btn-cta" href="https://wa.me/56950803204?text=%C2%A1Hola%20Akimel!%20Vengo%20desde%20su%20p%C3%A1gina%20web%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20juegos%20para%20mi%20evento.%20%C2%BFMe%20pueden%20ayudar%3F" target="_blank"><span class="wsp-icon"></span>COTIZAR</a>
   </div>
 </nav>
 </header>
@@ -1054,7 +1054,7 @@ footer {
     <p>Somos una empresa familiar experta en entretención. Arrendamos juegos inflables, electrónicos y de interior con instalación profesional incluida. Tu fiesta, en las mejores manos.</p>
     <div class="hero-btns">
       <a href="#juegos" onclick="mostrarPagina('juegos'); return false;" class="btn btn-primary">📦 Ver Catálogo</a>
-      <a href="https://wa.me/56950803204" class="btn btn-secondary" target="_blank"><span class="wsp-icon"></span>Cotizar Ahora</a>
+      <a href="https://wa.me/56950803204?text=%C2%A1Hola%20Akimel!%20Vengo%20desde%20su%20p%C3%A1gina%20web%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20juegos%20para%20mi%20evento.%20%C2%BFMe%20pueden%20ayudar%3F" class="btn btn-secondary" target="_blank"><span class="wsp-icon"></span>Cotizar Ahora</a>
     </div>
 
     <!-- ESTADÍSTICAS -->
@@ -1178,8 +1178,8 @@ footer {
           <strong>¿Listo para tu evento?</strong><br>
           Escríbenos por WhatsApp y cotiza sin compromiso
         </p>
-        <a href="https://wa.me/56950803204?text=%C2%A1Hola%20Akimel!%20%F0%9F%8E%89%20Vengo%20desde%20su%20p%C3%A1gina%20web%20y%20me%20gustar%C3%ADa%20cotizar%20para%20mi%20evento.%20%C2%BFMe%20pueden%20ayudar%3F" class="btn btn-primary" target="_blank" style="font-size: 15px; padding: 14px 30px; width: fit-content;">
-          <span class="wsp-icon"></span>Contacta Ahora
+        <a href="https://wa.me/56950803204?text=%C2%A1Hola%20Akimel!%20Vengo%20desde%20su%20p%C3%A1gina%20web%20y%20me%20gustar%C3%ADa%20cotizar%20para%20mi%20evento.%20%C2%BFMe%20pueden%20ayudar%3F" class="btn btn-primary" target="_blank" style="font-size: 15px; padding: 14px 30px; width: fit-content;">
+          Contacta Ahora
         </a>
       </div>
     </div>
@@ -1190,7 +1190,7 @@ footer {
   <p>© 2024 Akimel Entretenciones · Diversión garantizada para tu evento 🎉</p>
 </footer>
 
-<a class="fab" href="https://wa.me/56950803204" target="_blank" title="Cotiza por WhatsApp"><img src="imagen/whatsapp_logo.png" alt="WhatsApp"></a>
+<a class="fab" href="https://wa.me/56950803204?text=%C2%A1Hola%20Akimel!%20Vengo%20desde%20su%20p%C3%A1gina%20web%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20juegos%20para%20mi%20evento.%20%C2%BFMe%20pueden%20ayudar%3F" target="_blank" title="Cotiza por WhatsApp"><img src="imagen/whatsapp_logo.png" alt="WhatsApp"></a>
 
 <!-- MODAL DETALLE JUEGO -->
 <div class="modal" id="gameModal">
@@ -1513,9 +1513,9 @@ let currentPhotoIdx = 0;
 
 // ===== MENSAJE BONITO DE WHATSAPP =====
 function mensajeWhatsApp(nombreJuego, fecha) {
-  let msg = `¡Hola Akimel! 🎉\n\nVengo desde su página web y me interesa arrendar:\n\n🎈 *${nombreJuego}*`;
+  let msg = `¡Hola Akimel!\n\nVengo desde su página web y me interesa arrendar:\n\n*${nombreJuego}*`;
   if (fecha) {
-    msg += `\n📅 Para la fecha: *${fecha}*`;
+    msg += `\nPara la fecha: *${fecha}*`;
   }
   msg += `\n\n¿Me pueden enviar más información y disponibilidad? ¡Gracias!`;
   return 'https://wa.me/56950803204?text=' + encodeURIComponent(msg);
