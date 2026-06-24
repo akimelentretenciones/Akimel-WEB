@@ -163,6 +163,21 @@ header {
 
 .section { padding: 60px 20px; max-width: 1400px; margin: 0 auto; }
 
+/* SISTEMA DE PÁGINAS SEPARADAS */
+.page { display: none; }
+.page.active { display: block; animation: fadeInPage 0.4s ease; }
+
+@keyframes fadeInPage {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.nav-menu a.nav-active {
+  color: var(--yellow);
+  border-bottom: 2px solid var(--yellow);
+  padding-bottom: 2px;
+}
+
 .section-head {
   text-align: center;
   margin-bottom: 50px;
@@ -882,7 +897,7 @@ footer {
   <span>📱 +56 9 5080 3204</span>
 </div>
 <nav class="navbar">
-  <div class="logo">
+  <div class="logo" onclick="mostrarPagina('inicio')" style="cursor:pointer;">
     <img src="imagen/logo_akimel_mejorado.png" alt="Akimel Logo" class="logo-img">
     <div class="logo-txt">
       <span class="logo-name">AKIMEL</span>
@@ -890,9 +905,9 @@ footer {
     </div>
   </div>
   <ul class="nav-menu">
-    <li><a href="#inicio">INICIO</a></li>
-    <li><a href="#juegos">JUEGOS</a></li>
-    <li><a href="#contacto">CONTACTO</a></li>
+    <li><a href="#inicio" onclick="mostrarPagina('inicio'); return false;" id="nav-inicio">INICIO</a></li>
+    <li><a href="#juegos" onclick="mostrarPagina('juegos'); return false;" id="nav-juegos">JUEGOS</a></li>
+    <li><a href="#contacto" onclick="mostrarPagina('contacto'); return false;" id="nav-contacto">CONTACTO</a></li>
     <li><a href="https://instagram.com/entretenciones_akimel" target="_blank">📷 INSTAGRAM</a></li>
   </ul>
   <div class="nav-right">
@@ -901,18 +916,18 @@ footer {
 </nav>
 </header>
 
-<section id="inicio" class="hero">
+<section id="inicio" class="hero page active">
   <div class="hero-content">
     <h1>¡Diversión Garantizada para tu Evento!</h1>
     <p>Juegos inflables de calidad profesional. Instalación incluida y disponibilidad en vivo.</p>
     <div class="hero-btns">
-      <a href="#juegos" class="btn btn-primary">📦 Ver Catálogo</a>
+      <a href="#juegos" onclick="mostrarPagina('juegos'); return false;" class="btn btn-primary">📦 Ver Catálogo</a>
       <a href="https://wa.me/56950803204" class="btn btn-secondary" target="_blank">💬 Cotizar Ahora</a>
     </div>
   </div>
 </section>
 
-<section id="juegos" class="section">
+<section id="juegos" class="section page">
   <div class="section-head">
     <span class="section-tag">🎉 Catálogo Completo</span>
     <h2>Nuestros Juegos</h2>
@@ -946,7 +961,7 @@ footer {
   <div id="gamesGrid"></div>
 </section>
 
-<section id="contacto" class="contact-section">
+<section id="contacto" class="contact-section page">
   <div class="contact-container">
     <div class="contact-left">
       <img src="imagen/logo_akimel_mejorado.png" alt="Akimel Entretenciones" class="contact-logo">
@@ -1671,6 +1686,23 @@ async function conectarFirebase() {
     console.warn('⚠️ No se pudo conectar a Firebase (la página funciona igual):', e);
   }
 }
+
+// ===== NAVEGACIÓN POR PÁGINAS SEPARADAS =====
+window.mostrarPagina = function(pagina) {
+  // Ocultar todas las páginas
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  // Mostrar la página seleccionada
+  const target = document.getElementById(pagina);
+  if (target) target.classList.add('active');
+
+  // Actualizar el menú (resaltar la opción activa)
+  document.querySelectorAll('.nav-menu a').forEach(a => a.classList.remove('nav-active'));
+  const navLink = document.getElementById('nav-' + pagina);
+  if (navLink) navLink.classList.add('nav-active');
+
+  // Subir al inicio de la página
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
 
 // ===== EXPONER FUNCIONES AL SCOPE GLOBAL (necesario en módulos ES6) =====
 window.setImg = setImg;
