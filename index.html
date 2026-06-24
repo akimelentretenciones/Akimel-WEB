@@ -364,6 +364,39 @@ header {
   filter: grayscale(0.5);
 }
 
+.categoria-bloque {
+  margin-bottom: 50px;
+}
+
+.categoria-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.categoria-titulo {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.categoria-sub {
+  font-size: 15px;
+  color: var(--text3);
+}
+
+.combo-aviso {
+  background: linear-gradient(135deg, #fff4e0, #ffe9cc);
+  border: 1px dashed var(--orange);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 12px;
+  color: #9a5a00;
+  margin-bottom: 12px;
+  line-height: 1.5;
+  text-align: center;
+}
+
 .games-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1001,18 +1034,21 @@ footer {
 </div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+// Firebase se carga de forma dinámica dentro de conectarFirebase()
+// para que si falla (sin red, CORS, etc.) el resto de la página
+// (juegos, calendario, fotos) funcione igual.
+let db = null;
+let fbCollection = null;
+let fbOnSnapshot = null;
 
-const firebaseApp = initializeApp({
+const FIREBASE_CONFIG = {
   apiKey:"AIzaSyCwqFq4B3YOAT5q5LiKHCSYNQhQphviQHE",
   authDomain:"base-de-datos-akimel-arriendos.firebaseapp.com",
   projectId:"base-de-datos-akimel-arriendos",
   storageBucket:"base-de-datos-akimel-arriendos.firebasestorage.app",
   messagingSenderId:"515460008647",
   appId:"1:515460008647:web:6c6b72c53c31312b12cce2"
-});
-const db = getFirestore(firebaseApp);
+};
 
 // Inventario con totales (cantidad de unidades de cada juego)
 const INVENTARIO_TOTAL = {
@@ -1025,7 +1061,12 @@ const INVENTARIO_TOTAL = {
   'Tobogán Dinopoder': 1,
   'Tobogán Pirata': 1,
   'Tobogán Obstáculo Danger': 1,
-  'Tobogán Obstáculo Robot': 1
+  'Tobogán Obstáculo Robot': 1,
+  'Avioncitos Voladores': 1,
+  'Carrusel Pony': 1,
+  'Taca Taca': 4,
+  'Mesa de Hockey': 4,
+  'Jenga': 1
 };
 
 // Mapeo de palabras clave para reconocer juegos en el texto de "equipos"
@@ -1054,7 +1095,21 @@ const MAPEO_JUEGOS = {
   'talbot': 'Tobogán Gold',
   'doble castillo': 'Tobogán Doble Castillo',
   'castillo doble': 'Tobogán Doble Castillo',
-  'castillo': 'Tobogán Doble Castillo'
+  'castillo': 'Tobogán Doble Castillo',
+  'avioncitos': 'Avioncitos Voladores',
+  'avioncito': 'Avioncitos Voladores',
+  'aviones': 'Avioncitos Voladores',
+  'avion': 'Avioncitos Voladores',
+  'carrusel': 'Carrusel Pony',
+  'carrusel pony': 'Carrusel Pony',
+  'pony': 'Carrusel Pony',
+  'taca taca': 'Taca Taca',
+  'tacataca': 'Taca Taca',
+  'taca': 'Taca Taca',
+  'futbolito': 'Taca Taca',
+  'mesa de hockey': 'Mesa de Hockey',
+  'hockey': 'Mesa de Hockey',
+  'jenga': 'Jenga'
 };
 
 let ARRIENDOS = [];
@@ -1069,6 +1124,7 @@ const GAMES = [
   {
     name: 'Tobogán Doble Castillo',
     type: 'Inflable',
+    cat: 'inflable',
     desc: 'El tobogán doble castillo Kids es la magia y diversión que tus peques merecen. Déjalos vivir una aventura llena de risas y emoción.',
     price: 40000,
     fotos: [
@@ -1081,6 +1137,7 @@ const GAMES = [
   {
     name: 'Tobogán Gold',
     type: 'Inflable',
+    cat: 'inflable',
     desc: 'Con el Tobogán Gold cada celebración es un golazo de diversión. Perfecto para tus momentos más especiales, donde la emoción no para.',
     price: 50000,
     fotos: [
@@ -1094,6 +1151,7 @@ const GAMES = [
   {
     name: 'Tobogán PRO',
     type: 'Inflable',
+    cat: 'inflable',
     desc: 'Nuestros toboganes PRO son la verdadera sensación. La nueva era de la diversión ha llegado, y esta aventura es para niños grandes y chicos.',
     price: 60000,
     fotos: [
@@ -1107,6 +1165,7 @@ const GAMES = [
   {
     name: 'Tobogán F1',
     type: 'Inflable',
+    cat: 'inflable',
     desc: 'Siente la velocidad con nuestro Tobogán Ferrari. Una experiencia llena de adrenalina con este espectacular inflable que entrega mucha diversión.',
     price: 70000,
     fotos: [
@@ -1120,6 +1179,7 @@ const GAMES = [
   {
     name: 'Tobogán Mario Bross',
     type: 'Inflable',
+    cat: 'inflable',
     desc: 'El tobogán Mario Bross de la familia AKIMEL trae diversión al máximo. No dejes pasar la oportunidad de tener esta aventura en tu evento.',
     price: 75000,
     fotos: [
@@ -1133,6 +1193,7 @@ const GAMES = [
   {
     name: 'Tobogán Marvel',
     type: 'Inflable',
+    cat: 'inflable',
     desc: 'Deslízate hacia la acción con el increíble Tobogán Marvel. Todos tus héroes favoritos te acompañarán en una aventura épica llena de emoción.',
     price: 75000,
     fotos: [
@@ -1146,6 +1207,7 @@ const GAMES = [
   {
     name: 'Tobogán Dinopoder',
     type: 'Inflable',
+    cat: 'inflable',
     desc: 'Nuestro impresionante dinosaurio inflable te entrega una experiencia llena de adrenalina que dejará a todos asombrados. No te pierdas la oportunidad.',
     price: 80000,
     fotos: [
@@ -1159,6 +1221,7 @@ const GAMES = [
   {
     name: 'Tobogán Pirata',
     type: 'Inflable',
+    cat: 'inflable',
     desc: 'Nuestro impresionante Pirata inflable te entrega una experiencia llena de adrenalina. Aventura pirata en alta mar buscando el tesoro.',
     price: 80000,
     fotos: [
@@ -1172,6 +1235,7 @@ const GAMES = [
   {
     name: 'Tobogán Obstáculo Danger',
     type: 'Inflable',
+    cat: 'inflable',
     desc: 'Increíble tobogán obstáculo danger de 13 metros de largo. Una verdadera pista de aventura que combina saltos, rampas, trepadas y zonas de competencia.',
     price: 100000,
     fotos: [
@@ -1185,6 +1249,7 @@ const GAMES = [
   {
     name: 'Tobogán Obstáculo Robot',
     type: 'Inflable',
+    cat: 'inflable',
     desc: 'Increíble tobogán obstáculo robot de 13 metros de largo. Una verdadera pista de aventura con saltos, rampas, trepadas y competencia.',
     price: 100000,
     fotos: [
@@ -1194,25 +1259,85 @@ const GAMES = [
       'imagen/robot_obstaculo_5_marcado.jpg',
       'imagen/robot_obstaculo_6_marcado.jpg'
     ]
+  },
+  {
+    name: 'Avioncitos Voladores',
+    type: 'Electrónico',
+    cat: 'electronico',
+    desc: 'Diversión que despega con nuestros Avioncitos Voladores. Los más pequeños viven la emoción de volar en un juego seguro y lleno de color.',
+    price: 85000,
+    fotos: [
+      'imagen/avioncitos_1_marcado.jpg',
+      'imagen/avioncitos_2_marcado.jpg'
+    ]
+  },
+  {
+    name: 'Carrusel Pony',
+    type: 'Electrónico',
+    cat: 'electronico',
+    desc: 'El clásico Carrusel Pony que encanta a todos. Una vuelta mágica llena de alegría, perfecta para los más pequeños de la fiesta.',
+    price: 70000,
+    fotos: [
+      'imagen/carrusel_pony_1_marcado.jpg',
+      'imagen/carrusel_pony_2_marcado.jpg',
+      'imagen/carrusel_pony_3_marcado.jpg',
+      'imagen/carrusel_pony_4_marcado.jpg'
+    ]
+  },
+  {
+    name: 'Taca Taca',
+    type: 'Interior',
+    cat: 'interior',
+    desc: 'El infaltable Taca Taca para los amantes del fútbol de mesa. Ideal para todas las edades y entretención asegurada en cualquier evento.',
+    price: 28000,
+    combo: true,
+    fotos: [
+      'imagen/tacataca_1_marcado.jpg',
+      'imagen/tacataca_2_marcado.jpg'
+    ]
+  },
+  {
+    name: 'Mesa de Hockey',
+    type: 'Interior',
+    cat: 'interior',
+    desc: 'Velocidad y reflejos con nuestra Mesa de Hockey. Un clásico de competencia que pone a prueba la habilidad de grandes y chicos.',
+    price: 28000,
+    combo: true,
+    fotos: [
+      'imagen/hockey_1_marcado.jpg',
+      'imagen/hockey_2_marcado.jpg'
+    ]
+  },
+  {
+    name: 'Jenga',
+    type: 'Interior',
+    cat: 'interior',
+    desc: 'El juego de equilibrio y estrategia que nunca pasa de moda. Jenga gigante para sumar diversión y suspenso a tu celebración.',
+    price: 28000,
+    combo: true,
+    fotos: [
+      'imagen/jenga_marcado.jpg'
+    ]
   }
 ];
 
 let currentGameIdx = -1;
 let currentPhotoIdx = 0;
 
-function renderGames() {
-  const grid = document.getElementById('gamesGrid');
-  grid.innerHTML = GAMES.map((game, idx) => {
-    const disponible = juegoDisponible(game.name);
-    const hayFecha = FECHA_SELECCIONADA !== null;
-    const cardClass = (hayFecha && !disponible) ? 'game-card agotado' : 'game-card';
-    let badge = '';
-    if (hayFecha) {
-      badge = disponible
-        ? '<div class="badge-disponible">✓ Disponible</div>'
-        : '<div class="badge-agotado">✕ Reservado</div>';
-    }
-    return `
+function crearCard(game, idx) {
+  const disponible = juegoDisponible(game.name);
+  const hayFecha = FECHA_SELECCIONADA !== null;
+  const cardClass = (hayFecha && !disponible) ? 'game-card agotado' : 'game-card';
+  let badge = '';
+  if (hayFecha) {
+    badge = disponible
+      ? '<div class="badge-disponible">✓ Disponible</div>'
+      : '<div class="badge-agotado">✕ Reservado</div>';
+  }
+  const comboHtml = game.combo
+    ? `<div class="combo-aviso">🎁 Combina juegos distintos y ahorra:<br><b>2 juegos $42.000 · 3 juegos $55.000</b></div>`
+    : '';
+  return `
     <div class="${cardClass}">
       <div class="game-gallery" onclick="openModal(${idx})" style="cursor:pointer;">
         ${badge}
@@ -1235,12 +1360,47 @@ function renderGames() {
         <h3 class="game-name">${game.name}</h3>
         <p class="game-desc">${game.desc}</p>
         <div class="game-price">${game.price.toLocaleString('es-CL')}</div>
+        ${comboHtml}
         <a href="https://wa.me/56950803204?text=Hola!%20Me%20interesa%20el%20${encodeURIComponent(game.name)}${hayFecha ? '%20para%20el%20' + encodeURIComponent(FECHA_SELECCIONADA) : ''}.%20¿Está%20disponible?" class="game-btn" target="_blank" onclick="event.stopPropagation()">💬 Cotizar</a>
       </div>
     </div>
   `;
-  }).join('');
-  
+}
+
+function renderGames() {
+  const cont = document.getElementById('gamesGrid');
+
+  // Definir las categorías con su título e ícono
+  const categorias = [
+    { id: 'inflable', titulo: '🏰 Juegos Inflables', sub: 'Toboganes y castillos para saltar sin parar' },
+    { id: 'electronico', titulo: '🎮 Juegos Electrónicos', sub: 'Diversión a motor para los más pequeños' },
+    { id: 'interior', titulo: '🏓 Juegos de Interior', sub: 'Clásicos de mesa para todas las edades' }
+  ];
+
+  let html = '';
+  categorias.forEach(categoria => {
+    // Filtrar juegos de esta categoría, conservando su índice original en GAMES
+    const juegosCat = GAMES
+      .map((game, idx) => ({ game, idx }))
+      .filter(item => item.game.cat === categoria.id);
+
+    if (juegosCat.length === 0) return;
+
+    html += `
+      <div class="categoria-bloque">
+        <div class="categoria-header">
+          <h3 class="categoria-titulo">${categoria.titulo}</h3>
+          <p class="categoria-sub">${categoria.sub}</p>
+        </div>
+        <div class="games-grid">
+          ${juegosCat.map(item => crearCard(item.game, item.idx)).join('')}
+        </div>
+      </div>
+    `;
+  });
+
+  cont.innerHTML = html;
+
   GAMES.forEach((game, idx) => {
     window[`currentImg${idx}`] = 0;
   });
@@ -1484,10 +1644,17 @@ window.cambiarMes = function(delta) {
 };
 
 // ===== CONECTAR FIREBASE (escucha en tiempo real) =====
-function conectarFirebase() {
+async function conectarFirebase() {
   try {
-    const arriendosRef = collection(db, 'arriendos');
-    onSnapshot(arriendosRef, (snapshot) => {
+    const appMod = await import("https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js");
+    const fsMod = await import("https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js");
+    const firebaseApp = appMod.initializeApp(FIREBASE_CONFIG);
+    db = fsMod.getFirestore(firebaseApp);
+    fbCollection = fsMod.collection;
+    fbOnSnapshot = fsMod.onSnapshot;
+
+    const arriendosRef = fbCollection(db, 'arriendos');
+    fbOnSnapshot(arriendosRef, (snapshot) => {
       ARRIENDOS = [];
       snapshot.forEach((doc) => {
         ARRIENDOS.push({ id: doc.id, ...doc.data() });
@@ -1498,10 +1665,10 @@ function conectarFirebase() {
         renderGames();
       }
     }, (error) => {
-      console.warn('⚠️ Error al conectar Firebase:', error);
+      console.warn('⚠️ Error al leer arriendos:', error);
     });
   } catch (e) {
-    console.warn('⚠️ No se pudo conectar a Firebase:', e);
+    console.warn('⚠️ No se pudo conectar a Firebase (la página funciona igual):', e);
   }
 }
 
