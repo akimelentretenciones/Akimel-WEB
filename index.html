@@ -1118,11 +1118,6 @@ footer {
     <div class="cal-selected-info" id="calSelectedInfo" style="display:none;"></div>
   </div>
 
-  <div id="disponibilidadHeader" style="display:none;">
-    <h3 class="disponibilidad-titulo" id="dispTitulo">Juegos Disponibles</h3>
-    <p class="disponibilidad-sub" id="dispSub">Selecciona una fecha en el calendario</p>
-  </div>
-
   <div id="gamesGrid"></div>
 </section>
 
@@ -1793,13 +1788,8 @@ window.seleccionarFecha = function(fechaStr, dia) {
   
   const info = document.getElementById('calSelectedInfo');
   info.style.display = 'block';
-  info.innerHTML = `📅 Mostrando disponibilidad para: <strong>${diaNom} ${dia} de ${mesNom}, ${CAL_YEAR}</strong>`;
-  
-  const dispHeader = document.getElementById('disponibilidadHeader');
-  dispHeader.style.display = 'block';
-  document.getElementById('dispTitulo').textContent = `Juegos Disponibles`;
-  document.getElementById('dispSub').textContent = `${diaNom} ${dia} de ${mesNom} — Toca un juego para ver más`;
-  
+  info.innerHTML = `📅 Disponibilidad para el <strong>${diaNom} ${dia} de ${mesNom}, ${CAL_YEAR}</strong><br><span style="font-size:13px;font-weight:500;color:var(--text2);">Toca un juego para ver todas sus fotos</span>`;
+
   renderCalendario();
   renderGames();
 };
