@@ -141,6 +141,119 @@ header {
   flex-wrap: wrap;
 }
 
+.hero-badge {
+  display: inline-block;
+  background: rgba(250, 100, 0, 0.12);
+  color: var(--orange);
+  padding: 10px 22px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+/* ESTADÍSTICAS */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 50px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.stat-card {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 24px 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  transition: transform 0.2s;
+}
+
+.stat-card:hover { transform: translateY(-4px); }
+
+.stat-num {
+  font-size: 38px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--blue), var(--orange));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: var(--text2);
+  font-weight: 600;
+}
+
+/* QUIÉNES SOMOS */
+.inicio-info {
+  max-width: 1100px;
+  margin: 70px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  padding: 0 20px;
+}
+
+.info-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 36px 28px;
+  text-align: center;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+  transition: transform 0.2s;
+}
+
+.info-card:hover { transform: translateY(-6px); }
+
+.info-icon {
+  font-size: 48px;
+  margin-bottom: 18px;
+}
+
+.info-card h3 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.info-card p {
+  font-size: 15px;
+  color: var(--text2);
+  line-height: 1.7;
+}
+
+/* CTA FINAL */
+.inicio-cta {
+  max-width: 800px;
+  margin: 70px auto 40px;
+  text-align: center;
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  border-radius: 24px;
+  padding: 50px 30px;
+  color: #fff;
+}
+
+.inicio-cta h2 {
+  font-size: 30px;
+  font-weight: 800;
+  margin-bottom: 14px;
+  color: #fff;
+}
+
+.inicio-cta p {
+  font-size: 16px;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 28px;
+}
+
 .btn {
   padding: 14px 28px;
   border-radius: 10px;
@@ -834,24 +947,24 @@ header {
   position: fixed;
   bottom: 22px;
   right: 22px;
-  width: 60px;
-  height: 60px;
-  background: var(--wsp);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
+  width: 64px;
+  height: 64px;
   cursor: pointer;
   text-decoration: none;
   z-index: 900;
   transition: all 0.2s;
-  box-shadow: 0 6px 20px rgba(37,211,102,0.45);
+  filter: drop-shadow(0 6px 16px rgba(37,211,102,0.45));
+}
+
+.fab img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .fab:hover {
   transform: scale(1.1);
-  box-shadow: 0 8px 26px rgba(37,211,102,0.6);
+  filter: drop-shadow(0 8px 22px rgba(37,211,102,0.6));
 }
 
 footer {
@@ -871,6 +984,8 @@ footer {
   .section h2 { font-size: 28px; }
   .nav-menu { gap: 16px; font-size: 12px; }
   .contact-container { grid-template-columns: 1fr; gap: 40px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .inicio-info { grid-template-columns: 1fr; }
 }
 
 @media(max-width:640px) {
@@ -886,6 +1001,9 @@ footer {
   .modal-gallery { height: 300px; }
   .contact-right { padding: 20px; }
   .contact-title { font-size: 24px; }
+  .stat-num { font-size: 30px; }
+  .inicio-cta h2 { font-size: 24px; }
+  .inicio-cta { padding: 36px 20px; }
 }
 </style>
 </head>
@@ -918,12 +1036,59 @@ footer {
 
 <section id="inicio" class="hero page active">
   <div class="hero-content">
-    <h1>¡Diversión Garantizada para tu Evento!</h1>
-    <p>Juegos inflables de calidad profesional. Instalación incluida y disponibilidad en vivo.</p>
+    <div class="hero-badge">⭐ 5 años creando momentos inolvidables</div>
+    <h1>¡Diversión Total para tu Evento!</h1>
+    <p>Somos una empresa familiar experta en entretención. Arrendamos juegos inflables, electrónicos y de interior con instalación profesional incluida. Tu fiesta, en las mejores manos.</p>
     <div class="hero-btns">
       <a href="#juegos" onclick="mostrarPagina('juegos'); return false;" class="btn btn-primary">📦 Ver Catálogo</a>
       <a href="https://wa.me/56950803204" class="btn btn-secondary" target="_blank">💬 Cotizar Ahora</a>
     </div>
+
+    <!-- ESTADÍSTICAS -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">5</div>
+        <div class="stat-label">Años de experiencia</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statEventos">+1.071</div>
+        <div class="stat-label">Eventos realizados</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Empresa familiar</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Atención al cliente</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIÉNES SOMOS -->
+  <div class="inicio-info">
+    <div class="info-card">
+      <div class="info-icon">👨‍👩‍👧‍👦</div>
+      <h3>Empresa Familiar</h3>
+      <p>Somos una familia apasionada por la diversión. Cada evento lo tratamos como si fuera nuestro, con dedicación y cariño.</p>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">🎯</div>
+      <h3>Expertos en Diversión Total</h3>
+      <p>5 años de experiencia nos avalan. Sabemos exactamente lo que tu evento necesita para ser un éxito rotundo.</p>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">🏆</div>
+      <h3>Confían en Nosotros</h3>
+      <p>Trabajamos con municipalidades, eventos masivos y cientos de fiestas de cumpleaños. Tu tranquilidad es nuestra prioridad.</p>
+    </div>
+  </div>
+
+  <!-- LLAMADO A LA ACCIÓN FINAL -->
+  <div class="inicio-cta">
+    <h2>¿Listo para hacer de tu evento algo inolvidable?</h2>
+    <p>Más de 1.000 familias y organizaciones ya confiaron en nosotros. ¡Súmate tú también!</p>
+    <a href="#juegos" onclick="mostrarPagina('juegos'); return false;" class="btn btn-primary" style="font-size:16px;padding:16px 40px;">🎉 Ver Nuestros Juegos</a>
   </div>
 </section>
 
@@ -1018,7 +1183,7 @@ footer {
   <p>© 2024 Akimel Entretenciones · Diversión garantizada para tu evento 🎉</p>
 </footer>
 
-<a class="fab" href="https://wa.me/56950803204" target="_blank" title="Cotiza por WhatsApp">💬</a>
+<a class="fab" href="https://wa.me/56950803204" target="_blank" title="Cotiza por WhatsApp"><img src="imagen/whatsapp_logo.png" alt="WhatsApp"></a>
 
 <!-- MODAL DETALLE JUEGO -->
 <div class="modal" id="gameModal">
@@ -1659,6 +1824,25 @@ window.cambiarMes = function(delta) {
 };
 
 // ===== CONECTAR FIREBASE (escucha en tiempo real) =====
+// ===== CONTADOR DE EVENTOS REALIZADOS (2025-2026) =====
+function actualizarContadorEventos() {
+  // Contar arriendos de 2025 y 2026 (excluyendo cancelados)
+  let total = 0;
+  for (const a of ARRIENDOS) {
+    if (a.estado === 'Cancelado') continue;
+    const f = a.fecha || '';
+    // Formato DD/MM/YYYY → tomar el año
+    const anio = f.split('/')[2];
+    if (anio === '2025' || anio === '2026') {
+      total++;
+    }
+  }
+  const el = document.getElementById('statEventos');
+  if (el && total > 0) {
+    el.textContent = '+' + total.toLocaleString('es-CL');
+  }
+}
+
 async function conectarFirebase() {
   try {
     const appMod = await import("https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js");
@@ -1675,6 +1859,10 @@ async function conectarFirebase() {
         ARRIENDOS.push({ id: doc.id, ...doc.data() });
       });
       console.log('✅ Arriendos cargados:', ARRIENDOS.length);
+
+      // Actualizar contador de eventos en la vista de inicio (2025-2026)
+      actualizarContadorEventos();
+
       // Actualizar vista si hay fecha seleccionada
       if (FECHA_SELECCIONADA) {
         renderGames();
