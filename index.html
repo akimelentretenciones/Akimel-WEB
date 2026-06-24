@@ -92,6 +92,19 @@ header {
 
 .nav-right { flex-shrink: 0; }
 
+/* Ícono de WhatsApp blanco para botones (SVG inline) */
+.wsp-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  margin-right: 7px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'><path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z'/></svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .btn-cta {
   background: var(--green);
   color: #fff !important;
@@ -1029,7 +1042,7 @@ footer {
     <li><a href="https://instagram.com/entretenciones_akimel" target="_blank">📷 INSTAGRAM</a></li>
   </ul>
   <div class="nav-right">
-    <a class="btn-cta" href="https://wa.me/56950803204" target="_blank">💬 COTIZAR</a>
+    <a class="btn-cta" href="https://wa.me/56950803204" target="_blank"><span class="wsp-icon"></span>COTIZAR</a>
   </div>
 </nav>
 </header>
@@ -1041,7 +1054,7 @@ footer {
     <p>Somos una empresa familiar experta en entretención. Arrendamos juegos inflables, electrónicos y de interior con instalación profesional incluida. Tu fiesta, en las mejores manos.</p>
     <div class="hero-btns">
       <a href="#juegos" onclick="mostrarPagina('juegos'); return false;" class="btn btn-primary">📦 Ver Catálogo</a>
-      <a href="https://wa.me/56950803204" class="btn btn-secondary" target="_blank">💬 Cotizar Ahora</a>
+      <a href="https://wa.me/56950803204" class="btn btn-secondary" target="_blank"><span class="wsp-icon"></span>Cotizar Ahora</a>
     </div>
 
     <!-- ESTADÍSTICAS -->
@@ -1094,7 +1107,6 @@ footer {
 
 <section id="juegos" class="section page">
   <div class="section-head">
-    <span class="section-tag">🎉 Catálogo Completo</span>
     <h2>Nuestros Juegos</h2>
     <p class="section-desc">Selecciona un juego para ver todas sus fotos y detalles. Cotiza directamente por WhatsApp.</p>
   </div>
@@ -1166,8 +1178,8 @@ footer {
           <strong>¿Listo para tu evento?</strong><br>
           Escríbenos por WhatsApp y cotiza sin compromiso
         </p>
-        <a href="https://wa.me/56950803204" class="btn btn-primary" target="_blank" style="font-size: 15px; padding: 14px 30px; width: fit-content;">
-          💬 Contacta Ahora
+        <a href="https://wa.me/56950803204?text=%C2%A1Hola%20Akimel!%20%F0%9F%8E%89%20Vengo%20desde%20su%20p%C3%A1gina%20web%20y%20me%20gustar%C3%ADa%20cotizar%20para%20mi%20evento.%20%C2%BFMe%20pueden%20ayudar%3F" class="btn btn-primary" target="_blank" style="font-size: 15px; padding: 14px 30px; width: fit-content;">
+          <span class="wsp-icon"></span>Contacta Ahora
         </a>
       </div>
     </div>
@@ -1202,7 +1214,7 @@ footer {
       <p class="modal-description" id="modalDesc">Descripción</p>
       <div class="modal-price" id="modalPrice">$0</div>
       <a href="https://wa.me/56950803204" class="modal-action-btn" target="_blank" id="modalBtn">
-        💬 Cotizar Este Juego
+        <span class="wsp-icon"></span>Cotizar Este Juego
       </a>
     </div>
   </div>
@@ -1499,6 +1511,16 @@ const GAMES = [
 let currentGameIdx = -1;
 let currentPhotoIdx = 0;
 
+// ===== MENSAJE BONITO DE WHATSAPP =====
+function mensajeWhatsApp(nombreJuego, fecha) {
+  let msg = `¡Hola Akimel! 🎉\n\nVengo desde su página web y me interesa arrendar:\n\n🎈 *${nombreJuego}*`;
+  if (fecha) {
+    msg += `\n📅 Para la fecha: *${fecha}*`;
+  }
+  msg += `\n\n¿Me pueden enviar más información y disponibilidad? ¡Gracias!`;
+  return 'https://wa.me/56950803204?text=' + encodeURIComponent(msg);
+}
+
 function crearCard(game, idx) {
   const disponible = juegoDisponible(game.name);
   const hayFecha = FECHA_SELECCIONADA !== null;
@@ -1536,7 +1558,7 @@ function crearCard(game, idx) {
         <p class="game-desc">${game.desc}</p>
         <div class="game-price">${game.price.toLocaleString('es-CL')}</div>
         ${comboHtml}
-        <a href="https://wa.me/56950803204?text=Hola!%20Me%20interesa%20el%20${encodeURIComponent(game.name)}${hayFecha ? '%20para%20el%20' + encodeURIComponent(FECHA_SELECCIONADA) : ''}.%20¿Está%20disponible?" class="game-btn" target="_blank" onclick="event.stopPropagation()">💬 Cotizar</a>
+        <a href="${mensajeWhatsApp(game.name, hayFecha ? FECHA_SELECCIONADA : null)}" class="game-btn" target="_blank" onclick="event.stopPropagation()"><span class="wsp-icon"></span>Cotizar</a>
       </div>
     </div>
   `;
@@ -1625,7 +1647,7 @@ function openModal(gameIdx) {
   document.getElementById('modalPrice').textContent = game.price.toLocaleString('es-CL');
   document.getElementById('modalMainImg').src = game.fotos[0];
   document.getElementById('modalNav').textContent = `1/${game.fotos.length}`;
-  document.getElementById('modalBtn').href = `https://wa.me/56950803204?text=Hola!%20Me%20interesa%20el%20${encodeURIComponent(game.name)}.%20¿Está%20disponible?`;
+  document.getElementById('modalBtn').href = mensajeWhatsApp(game.name, FECHA_SELECCIONADA);
   
   const thumbsContainer = document.getElementById('modalThumbs');
   thumbsContainer.innerHTML = game.fotos.map((foto, i) => `
