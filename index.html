@@ -147,10 +147,10 @@ header {
 }
 
 .hero-logo-img {
-  width: 380px;
-  max-width: 100%;
-  height: auto;
-  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  box-shadow: 0 10px 30px rgba(222,28,36,0.25);
   animation: floatLogo 3s ease-in-out infinite;
 }
 
@@ -280,13 +280,29 @@ header {
 
 /* CTA FINAL */
 .inicio-cta {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 70px auto 40px;
-  text-align: center;
   background: linear-gradient(135deg, var(--blue-dark), var(--blue));
   border-radius: 24px;
-  padding: 50px 30px;
+  padding: 50px;
   color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.cta-dino {
+  flex-shrink: 0;
+  width: 240px;
+  max-width: 100%;
+  height: auto;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));
+  animation: floatLogo 3s ease-in-out infinite;
+}
+
+.cta-texto {
+  flex: 1;
+  text-align: left;
 }
 
 .inicio-cta h2 {
@@ -1051,7 +1067,9 @@ footer {
   .contact-title { font-size: 24px; }
   .stat-num { font-size: 30px; }
   .inicio-cta h2 { font-size: 24px; }
-  .inicio-cta { padding: 36px 20px; }
+  .inicio-cta { padding: 36px 20px; flex-direction: column; text-align: center; }
+  .cta-texto { text-align: center; }
+  .cta-dino { width: 180px; }
 }
 </style>
 </head>
@@ -1086,7 +1104,7 @@ footer {
   <div class="hero-inner">
   <div class="hero-split">
     <div class="hero-logo-side">
-      <img src="imagen/logo_akimel_mejorado.png" alt="Akimel Entretenciones" class="hero-logo-img">
+      <img src="imagen/perfil_confeti_rojo.png" alt="Akimel Entretenciones" class="hero-logo-img">
     </div>
     <div class="hero-text-side">
       <div class="hero-badge">⭐ 5 años creando momentos inolvidables</div>
@@ -1141,9 +1159,12 @@ footer {
 
   <!-- LLAMADO A LA ACCIÓN FINAL -->
   <div class="inicio-cta">
-    <h2>¿Listo para hacer de tu evento algo inolvidable?</h2>
-    <p>Más de 1.000 familias y organizaciones ya confiaron en nosotros. ¡Súmate tú también!</p>
-    <a href="#juegos" onclick="mostrarPagina('juegos'); return false;" class="btn btn-primary" style="font-size:16px;padding:16px 40px;">🎉 Ver Nuestros Juegos</a>
+    <img src="imagen/logo_akimel_mejorado.png" alt="Akimel" class="cta-dino">
+    <div class="cta-texto">
+      <h2>¿Listo para hacer de tu evento algo inolvidable?</h2>
+      <p>Más de 1.000 familias y organizaciones ya confiaron en nosotros. ¡Súmate tú también!</p>
+      <a href="#juegos" onclick="mostrarPagina('juegos'); return false;" class="btn btn-primary" style="font-size:16px;padding:16px 40px;">🎉 Ver Nuestros Juegos</a>
+    </div>
   </div>
   </div>
 </section>
