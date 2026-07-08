@@ -2,10 +2,12 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#041e42">
 <title>Akimel — Juegos Inflables Arriendos | Santiago, Chile</title>
 <meta name="description" content="Arriendo de juegos inflables para eventos y cumpleaños en Santiago. Disponibilidad en vivo, cotiza sin compromiso.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -22,10 +24,32 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html, body { max-width: 100%; overflow-x: clip; }
 body { font-family: 'Sora', -apple-system, sans-serif; color: var(--text); line-height: 1.6; background: #f5f7fa; }
 img { max-width: 100%; display: block; }
 a { text-decoration: none; color: inherit; }
+button, a { -webkit-tap-highlight-color: rgba(0,113,206,0.15); }
+
+:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+
+/* En pantallas táctiles los :hover se quedan "pegados" tras tocar */
+@media (hover: none) {
+  .game-card:hover, .info-card:hover, .stat-card:hover,
+  .btn:hover, .btn-cta:hover, .cal-arrow:hover,
+  .cal-day:hover:not(.empty):not(.past) { transform: none; }
+  .cal-day:hover:not(.empty):not(.past) { background: #f0f4f8; color: var(--text); }
+  .cal-day.selected:hover { background: var(--blue); color: #fff; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 
 header {
   background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%);
@@ -337,6 +361,11 @@ header {
 
 .btn-secondary { background: var(--blue); color: #fff; }
 .btn-secondary:hover { background: #0056a0; transform: translateY(-2px); }
+
+/* Variantes de tamaño (antes eran estilos inline) */
+.btn-lg { font-size: 16px; padding: 16px 40px; }
+.btn-contact { font-size: 15px; padding: 14px 30px; width: fit-content; }
+.hero-split .hero-btns { justify-content: flex-start; }
 
 .section { padding: 60px 20px; max-width: 1400px; margin: 0 auto; }
 
@@ -1039,37 +1068,197 @@ footer {
   font-size: 13px;
 }
 
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+/* --- ESCRITORIO ANGOSTO / TABLET HORIZONTAL --- */
 @media(max-width:1200px) {
-  .games-grid { grid-template-columns: repeat(2, 1fr); }
+  .games-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .hero h1 { font-size: 38px; }
+  .hero-logo-img { width: 260px; height: 260px; }
+  .hero-split { gap: 40px; }
 }
 
+/* --- TABLET --- */
 @media(max-width:900px) {
   .hero h1 { font-size: 32px; }
   .section h2 { font-size: 28px; }
-  .nav-menu { gap: 16px; font-size: 12px; }
-  .contact-container { grid-template-columns: 1fr; gap: 40px; }
+  .nav-menu { gap: 16px; }
+  .nav-menu a { font-size: 12px; }
+  .contact-container { grid-template-columns: 1fr; gap: 34px; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .inicio-info { grid-template-columns: 1fr; }
+  .inicio-info { grid-template-columns: 1fr; gap: 20px; }
+  .hero-split { gap: 32px; }
+  .hero-logo-img { width: 220px; height: 220px; }
+  .inicio-cta { padding: 40px 32px; gap: 28px; }
+  .cta-dino { width: 180px; }
 }
 
-@media(max-width:640px) {
-  .navbar { padding: 10px 14px; gap: 12px; flex-wrap: wrap; }
-  .nav-menu { flex: 1; gap: 10px; }
-  .hero { padding: 30px 14px 60px; }
-  .hero h1 { font-size: 24px; }
-  .hero p { font-size: 16px; }
-  .section { padding: 40px 14px; }
-  .games-grid { grid-template-columns: 1fr; gap: 20px; }
-  .game-gallery { height: 160px; }
-  .modal-content { width: 95%; max-height: 95vh; }
-  .modal-gallery { height: 300px; }
-  .contact-right { padding: 20px; }
-  .contact-title { font-size: 24px; }
-  .stat-num { font-size: 30px; }
-  .inicio-cta h2 { font-size: 24px; }
-  .inicio-cta { padding: 36px 20px; flex-direction: column; text-align: center; }
+/* --- CELULAR (el grueso del ajuste) --- */
+@media(max-width:768px) {
+
+  /* HEADER: fila 1 = logo + Cotizar · fila 2 = menú */
+  .header-top { padding: 6px 14px; font-size: 11px; gap: 10px; }
+  .navbar { flex-wrap: wrap; padding: 10px 14px; gap: 10px 12px; }
+  .logo { order: 1; gap: 9px; }
+  .nav-right { order: 2; margin-left: auto; }
+  .nav-menu {
+    order: 3;
+    flex: 0 0 100%;
+    justify-content: space-between;
+    gap: 6px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255,255,255,0.13);
+  }
+  .nav-menu a { font-size: 12px; }
+  .logo-img { height: 40px; }
+  .logo-name { font-size: 16px; }
+  .logo-sub { font-size: 10px; }
+  .btn-cta { padding: 9px 16px; font-size: 12px; }
+  .wsp-icon { width: 15px; height: 15px; margin-right: 5px; }
+
+  /* HERO: logo arriba, texto abajo, todo centrado */
+  .hero { padding: 0 0 50px; }
+  .hero-inner { padding: 32px 16px 0; }
+  .hero-split { flex-direction: column; text-align: center; gap: 22px; }
+  .hero-logo-img {
+    width: 190px; height: 190px;
+    box-shadow: 0 8px 22px rgba(222,28,36,0.22);
+  }
+  .hero-badge { font-size: 12px; padding: 8px 16px; margin-bottom: 16px; }
+  .hero h1 { font-size: 27px; margin-bottom: 14px; }
+  .hero p { font-size: 15px; margin-bottom: 24px; }
+  .hero-btns, .hero-split .hero-btns { justify-content: center; gap: 10px; }
+  .hero-btns .btn { flex: 1 1 210px; max-width: 340px; justify-content: center; }
+
+  /* ESTADÍSTICAS */
+  .stats-grid { gap: 12px; margin-top: 34px; }
+  .stat-card { padding: 18px 10px; border-radius: 14px; }
+  .stat-num { font-size: 28px; }
+  .stat-label { font-size: 12px; line-height: 1.35; }
+
+  /* QUIÉNES SOMOS */
+  .inicio-info { margin: 44px auto 0; padding: 0 16px; gap: 16px; }
+  .info-card { padding: 26px 20px; border-radius: 14px; }
+  .info-icon { font-size: 40px; margin-bottom: 12px; }
+  .info-card h3 { font-size: 18px; }
+  .info-card p { font-size: 14px; }
+
+  /* CTA FINAL */
+  .inicio-cta {
+    margin: 44px 16px 24px;
+    padding: 32px 20px;
+    border-radius: 20px;
+    flex-direction: column;
+    text-align: center;
+    gap: 18px;
+  }
   .cta-texto { text-align: center; }
-  .cta-dino { width: 180px; }
+  .inicio-cta h2 { font-size: 22px; line-height: 1.3; }
+  .inicio-cta p { font-size: 15px; margin-bottom: 20px; }
+  .cta-dino { width: 150px; }
+  .btn-lg { font-size: 15px; padding: 14px 22px; width: 100%; justify-content: center; }
+
+  /* SECCIONES */
+  .section { padding: 32px 14px 40px; }
+  .section-head { margin-bottom: 26px; }
+  .section h2 { font-size: 25px; margin-bottom: 10px; }
+  .section-desc { font-size: 14px; }
+
+  /* CALENDARIO */
+  .calendar-box { padding: 16px 12px; border-radius: 14px; margin-bottom: 28px; }
+  .cal-header { margin-bottom: 14px; }
+  .cal-title { font-size: 17px; }
+  .cal-arrow { width: 36px; height: 36px; font-size: 15px; border-radius: 9px; }
+  .cal-weekdays, .cal-grid { gap: 4px; }
+  .cal-weekday { font-size: 10px; padding: 2px 0; }
+  .cal-day { font-size: 13px; border-radius: 8px; }
+  .cal-selected-info { font-size: 13px; padding: 12px 10px; margin-top: 14px; line-height: 1.45; }
+
+  /* CATEGORÍAS */
+  .categoria-bloque { margin-bottom: 36px; }
+  .categoria-header { margin-bottom: 18px; }
+  .categoria-titulo { font-size: 21px; }
+  .categoria-sub { font-size: 13px; }
+  .combo-aviso { font-size: 11.5px; }
+
+  /* TARJETAS DE JUEGO */
+  .games-grid { grid-template-columns: 1fr; gap: 18px; margin-bottom: 0; }
+  .game-card { border-radius: 14px; }
+  .game-gallery { height: 210px; }
+  .gallery-btn { width: 34px; height: 34px; font-size: 15px; border-radius: 8px; }
+  .gallery-controls { bottom: 10px; left: 10px; gap: 8px; }
+  .gallery-nav { bottom: 10px; right: 10px; padding: 5px 9px; }
+  .gallery-thumbs { gap: 8px; padding: 8px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .gallery-thumbs::-webkit-scrollbar { display: none; }
+  .thumb { width: 46px; height: 46px; }
+  .game-info { padding: 16px; }
+  .game-name { font-size: 17px; }
+  .game-desc { font-size: 13.5px; margin-bottom: 14px; }
+  .game-btn { padding: 14px; font-size: 14px; }
+  .badge-disponible, .badge-agotado { top: 10px; right: 10px; font-size: 10px; padding: 4px 9px; }
+
+  /* MODAL: hoja inferior a pantalla completa */
+  .modal { align-items: flex-end; }
+  .modal-content { width: 100%; max-width: 100%; max-height: 92vh; border-radius: 18px 18px 0 0; }
+  .modal-gallery { height: 260px; }
+  .modal-close { top: 12px; right: 12px; width: 38px; height: 38px; font-size: 20px; }
+  .modal-controls {
+    top: 50%; bottom: auto; left: 10px; right: 10px;
+    transform: translateY(-50%);
+    justify-content: space-between;
+  }
+  .modal-btn { width: 42px; height: 42px; }
+  .modal-nav { bottom: 12px; right: 12px; padding: 6px 12px; font-size: 12px; }
+  .modal-thumbnails { padding: 12px; gap: 8px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .modal-thumbnails::-webkit-scrollbar { display: none; }
+  .modal-thumb { width: 58px; height: 58px; border-width: 2px; border-radius: 7px; }
+  .modal-info { padding: 18px 18px 26px; }
+  .modal-title { font-size: 22px; }
+  .modal-type { font-size: 11px; margin-bottom: 10px; }
+  .modal-description { font-size: 14.5px; line-height: 1.65; margin-bottom: 18px; }
+  .modal-price { font-size: 26px; margin-bottom: 16px; }
+  .modal-action-btn { padding: 15px; font-size: 15px; }
+
+  /* CONTACTO */
+  .contact-section { padding: 32px 16px 40px; }
+  .contact-left { order: -1; }
+  .contact-logo { max-width: 190px; }
+  .contact-right { padding: 0; }
+  .contact-title { font-size: 21px; margin-bottom: 26px; letter-spacing: 0.5px; }
+  .contact-item { gap: 14px; margin-bottom: 22px; }
+  .contact-icon { font-size: 26px; }
+  .contact-text h3 { font-size: 12px; }
+  .contact-text p { font-size: 15px; word-break: break-word; }
+  .btn-contact { width: 100%; justify-content: center; font-size: 15px; padding: 15px 20px; }
+
+  /* FLOTANTE + FOOTER (espacio para que el botón no tape el texto) */
+  .fab { width: 56px; height: 56px; bottom: 16px; right: 16px; }
+  footer { padding: 28px 16px 92px; font-size: 12px; }
+}
+
+/* --- CELULARES CHICOS (iPhone SE, Android 360px) --- */
+@media(max-width:400px) {
+  .header-top { font-size: 10px; padding: 5px 10px; gap: 6px; }
+  .logo-img { height: 34px; }
+  .logo-name { font-size: 14px; }
+  .logo-sub { font-size: 9px; }
+  .btn-cta { padding: 8px 12px; font-size: 11px; }
+  .nav-menu a { font-size: 11px; }
+  .hero-logo-img { width: 165px; height: 165px; }
+  .hero h1 { font-size: 24px; }
+  .stat-num { font-size: 24px; }
+  .stat-label { font-size: 11px; }
+  .calendar-box { padding: 14px 8px; }
+  .cal-weekdays, .cal-grid { gap: 3px; }
+  .cal-day { font-size: 12px; border-radius: 7px; }
+  .cal-title { font-size: 15px; }
+  .cal-arrow { width: 32px; height: 32px; font-size: 14px; }
+  .game-gallery { height: 185px; }
+  .categoria-titulo { font-size: 19px; }
+  .inicio-cta h2 { font-size: 20px; }
+  .modal-gallery { height: 225px; }
 }
 </style>
 </head>
@@ -1110,7 +1299,7 @@ footer {
       <div class="hero-badge">⭐ 5 años creando momentos inolvidables</div>
       <h1>¡Diversión Total para tu Evento!</h1>
       <p>Somos una empresa familiar experta en entretención. Arrendamos juegos inflables, electrónicos y de interior con instalación profesional incluida. Tu fiesta, en las mejores manos.</p>
-      <div class="hero-btns" style="justify-content:flex-start;">
+      <div class="hero-btns">
         <a href="#juegos" onclick="mostrarPagina('juegos'); return false;" class="btn btn-primary">📦 Ver Catálogo</a>
         <a href="https://wa.me/56950803204?text=%C2%A1Hola%20Akimel!%20Vengo%20desde%20su%20p%C3%A1gina%20web%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20juegos%20para%20mi%20evento.%20%C2%BFMe%20pueden%20ayudar%3F" class="btn btn-secondary" target="_blank"><span class="wsp-icon"></span>Cotizar Ahora</a>
       </div>
@@ -1163,9 +1352,8 @@ footer {
     <div class="cta-texto">
       <h2>¿Listo para hacer de tu evento algo inolvidable?</h2>
       <p>Más de 1.000 familias y organizaciones ya confiaron en nosotros. ¡Súmate tú también!</p>
-      <a href="#juegos" onclick="mostrarPagina('juegos'); return false;" class="btn btn-primary" style="font-size:16px;padding:16px 40px;">🎉 Ver Nuestros Juegos</a>
+      <a href="#juegos" onclick="mostrarPagina('juegos'); return false;" class="btn btn-primary btn-lg">🎉 Ver Nuestros Juegos</a>
     </div>
-  </div>
   </div>
 </section>
 
@@ -1242,8 +1430,8 @@ footer {
           <strong>¿Listo para tu evento?</strong><br>
           Escríbenos por WhatsApp y cotiza sin compromiso
         </p>
-        <a href="https://wa.me/56950803204?text=%C2%A1Hola%20Akimel!%20Vengo%20desde%20su%20p%C3%A1gina%20web%20y%20me%20gustar%C3%ADa%20cotizar%20para%20mi%20evento.%20%C2%BFMe%20pueden%20ayudar%3F" class="btn btn-primary" target="_blank" style="font-size: 15px; padding: 14px 30px; width: fit-content;">
-          Contacta Ahora
+        <a href="https://wa.me/56950803204?text=%C2%A1Hola%20Akimel!%20Vengo%20desde%20su%20p%C3%A1gina%20web%20y%20me%20gustar%C3%ADa%20cotizar%20para%20mi%20evento.%20%C2%BFMe%20pueden%20ayudar%3F" class="btn btn-primary btn-contact" target="_blank">
+          <span class="wsp-icon"></span>Contacta Ahora
         </a>
       </div>
     </div>
@@ -1602,17 +1790,17 @@ function crearCard(game, idx) {
     <div class="${cardClass}">
       <div class="game-gallery" onclick="openModal(${idx})" style="cursor:pointer;">
         ${badge}
-        <img src="${game.fotos[0]}" alt="${game.name}" class="game-img" id="img-${idx}">
+        <img src="${game.fotos[0]}" alt="${game.name}" class="game-img" id="img-${idx}" loading="lazy" decoding="async">
         <div class="gallery-controls">
-          <button class="gallery-btn" onclick="event.stopPropagation(); prevImg(${idx})">❮</button>
-          <button class="gallery-btn" onclick="event.stopPropagation(); nextImg(${idx})">❯</button>
+          <button class="gallery-btn" aria-label="Foto anterior" onclick="event.stopPropagation(); prevImg(${idx})">❮</button>
+          <button class="gallery-btn" aria-label="Foto siguiente" onclick="event.stopPropagation(); nextImg(${idx})">❯</button>
         </div>
         <div class="gallery-nav" id="nav-${idx}">1/${game.fotos.length}</div>
       </div>
       <div class="gallery-thumbs" id="thumbs-${idx}">
         ${game.fotos.map((foto, i) => `
           <div class="thumb active" onclick="event.stopPropagation(); setImg(${idx}, ${i})" id="thumb-${idx}-${i}">
-            <img src="${foto}" alt="Foto ${i+1}">
+            <img src="${foto}" alt="Foto ${i+1}" loading="lazy" decoding="async">
           </div>
         `).join('')}
       </div>
@@ -1716,15 +1904,17 @@ function openModal(gameIdx) {
   const thumbsContainer = document.getElementById('modalThumbs');
   thumbsContainer.innerHTML = game.fotos.map((foto, i) => `
     <div class="modal-thumb ${i === 0 ? 'active' : ''}" onclick="setModalImg(${i})" id="modal-thumb-${i}">
-      <img src="${foto}" alt="Foto ${i+1}">
+      <img src="${foto}" alt="Foto ${i+1}" loading="lazy" decoding="async">
     </div>
   `).join('');
   
   document.getElementById('gameModal').classList.add('active');
+  document.body.style.overflow = 'hidden'; // evita que el fondo haga scroll
 }
 
 function closeModal() {
   document.getElementById('gameModal').classList.remove('active');
+  document.body.style.overflow = '';
 }
 
 function setModalImg(idx) {
