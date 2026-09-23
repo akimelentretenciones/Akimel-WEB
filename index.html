@@ -768,6 +768,8 @@ header {
   content: '+ ';
   margin-right: 4px;
 }
+.game-price.sin-precio::before,
+.modal-price.sin-precio::before { content: none; }
 
 .game-btn {
   width: 100%;
@@ -1499,8 +1501,13 @@ const INVENTARIO_TOTAL = {
   'Tobogán Marvel': 1,
   'Tobogán Dinopoder': 1,
   'Tobogán Pirata': 1,
+  'Tobogán Dulcelandia': 1,
   'Tobogán Obstáculo Danger': 1,
   'Tobogán Obstáculo Robot': 1,
+  'Tobogán Obstáculo Aventura Espacial': 1,
+  'Tobogán Obstáculo Dino Volcán': 1,
+  'Tobogán Obstáculo Titán': 1,
+  'Toro en Llamas': 1,
   'Avioncitos Voladores': 1,
   'Carrusel Pony': 1,
   'Taca Taca': 4,
@@ -1510,6 +1517,21 @@ const INVENTARIO_TOTAL = {
 
 // Mapeo de palabras clave para reconocer juegos en el texto de "equipos"
 const MAPEO_JUEGOS = {
+  'dulcelandia': 'Tobogán Dulcelandia',
+  'dulce': 'Tobogán Dulcelandia',
+  'aventura espacial': 'Tobogán Obstáculo Aventura Espacial',
+  'espacial': 'Tobogán Obstáculo Aventura Espacial',
+  'espacio': 'Tobogán Obstáculo Aventura Espacial',
+  'dino volcan': 'Tobogán Obstáculo Dino Volcán',
+  'dino volcán': 'Tobogán Obstáculo Dino Volcán',
+  'volcan': 'Tobogán Obstáculo Dino Volcán',
+  'volcán': 'Tobogán Obstáculo Dino Volcán',
+  'titan': 'Tobogán Obstáculo Titán',
+  'titán': 'Tobogán Obstáculo Titán',
+  'toro': 'Toro en Llamas',
+  'toro mecanico': 'Toro en Llamas',
+  'toro mecánico': 'Toro en Llamas',
+  'toro en llamas': 'Toro en Llamas',
   'danger': 'Tobogán Obstáculo Danger',
   'obstaculo danger': 'Tobogán Obstáculo Danger',
   'obstáculo danger': 'Tobogán Obstáculo Danger',
@@ -1672,11 +1694,21 @@ const GAMES = [
     ]
   },
   {
+    name: 'Tobogán Dulcelandia',
+    type: 'Inflable',
+    cat: 'inflable',
+    desc: 'Un mágico mundo de caramelos, paletas y bastones de dulce lleno de color y diversión. Alto 8 m · Largo 7,5 m · Ancho 4 m.',
+    price: 80000,
+    fotos: [
+      'imagen/dulcelandia_akimel.jpg'
+    ]
+  },
+  {
     name: 'Tobogán Obstáculo Danger',
     type: 'Inflable',
     cat: 'inflable',
     desc: 'Increíble tobogán obstáculo danger de 13 metros de largo. Una verdadera pista de aventura que combina saltos, rampas, trepadas y zonas de competencia.',
-    price: 100000,
+    price: 115000,
     fotos: [
       'imagen/obstaculo_1_marcado.jpg',
       'imagen/obstaculo_3_marcado.jpg',
@@ -1690,7 +1722,7 @@ const GAMES = [
     type: 'Inflable',
     cat: 'inflable',
     desc: 'Increíble tobogán obstáculo robot de 13 metros de largo. Una verdadera pista de aventura con saltos, rampas, trepadas y competencia.',
-    price: 100000,
+    price: 115000,
     fotos: [
       'imagen/robot_obstaculo_1_marcado.jpg',
       'imagen/robot_obstaculo_2_marcado.jpg',
@@ -1700,11 +1732,41 @@ const GAMES = [
     ]
   },
   {
+    name: 'Tobogán Obstáculo Aventura Espacial',
+    type: 'Inflable',
+    cat: 'inflable',
+    desc: 'Tobogán obstáculo de 13 metros de largo, una travesía entre cohetes y planetas que combina saltos, rampas y zonas de competencia.',
+    price: 115000,
+    fotos: [
+      'imagen/aventura_espacial_akimel.jpg'
+    ]
+  },
+  {
+    name: 'Tobogán Obstáculo Dino Volcán',
+    type: 'Inflable',
+    cat: 'inflable',
+    desc: 'Tobogán obstáculo de 13 metros de largo, una aventura prehistórica entre dinosaurios y volcanes con saltos, rampas y zonas de competencia.',
+    price: 115000,
+    fotos: [
+      'imagen/dino_volcan_akimel.jpg'
+    ]
+  },
+  {
+    name: 'Tobogán Obstáculo Titán',
+    type: 'Inflable',
+    cat: 'inflable',
+    desc: 'Tobogán obstáculo de 13 metros de largo, una pista de aventura extrema que combina rampas, trepadas y desafiantes zonas de competencia.',
+    price: 115000,
+    fotos: [
+      'imagen/titan_akimel.jpg'
+    ]
+  },
+  {
     name: 'Avioncitos Voladores',
     type: 'Electrónico',
     cat: 'electronico',
     desc: 'Diversión que despega con nuestros Avioncitos Voladores. Los más pequeños viven la emoción de volar en un juego seguro y lleno de color.',
-    price: 85000,
+    price: 80000,
     fotos: [
       'imagen/avioncitos_1_marcado.jpg',
       'imagen/avioncitos_2_marcado.jpg'
@@ -1721,6 +1783,16 @@ const GAMES = [
       'imagen/carrusel_pony_2_marcado.jpg',
       'imagen/carrusel_pony_3_marcado.jpg',
       'imagen/carrusel_pony_4_marcado.jpg'
+    ]
+  },
+  {
+    name: 'Toro en Llamas',
+    type: 'Electrónico',
+    cat: 'electronico',
+    desc: '¿Quién aguanta más arriba del toro? Toro mecánico con colchoneta inflable de seguridad, pura adrenalina y risas para grandes y chicos.',
+    price: null,
+    fotos: [
+      'imagen/toro_en_llamas_akimel.jpg'
     ]
   },
   {
@@ -1808,7 +1880,7 @@ function crearCard(game, idx) {
         <span class="game-type">${game.type}</span>
         <h3 class="game-name">${game.name}</h3>
         <p class="game-desc">${game.desc}</p>
-        <div class="game-price">${game.price.toLocaleString('es-CL')}</div>
+        <div class="game-price${game.price ? '' : ' sin-precio'}">${game.price ? game.price.toLocaleString('es-CL') : 'Precio a consultar'}</div>
         ${comboHtml}
         <a href="${mensajeWhatsApp(game.name, hayFecha ? FECHA_SELECCIONADA : null)}" class="game-btn" target="_blank" onclick="event.stopPropagation()"><span class="wsp-icon"></span>Cotizar</a>
       </div>
@@ -1896,7 +1968,9 @@ function openModal(gameIdx) {
   document.getElementById('modalType').textContent = game.type;
   document.getElementById('modalTitle').textContent = game.name;
   document.getElementById('modalDesc').textContent = game.desc;
-  document.getElementById('modalPrice').textContent = game.price.toLocaleString('es-CL');
+  const mp = document.getElementById('modalPrice');
+  mp.textContent = game.price ? game.price.toLocaleString('es-CL') : 'Precio a consultar';
+  mp.classList.toggle('sin-precio', !game.price);
   document.getElementById('modalMainImg').src = game.fotos[0];
   document.getElementById('modalNav').textContent = `1/${game.fotos.length}`;
   document.getElementById('modalBtn').href = mensajeWhatsApp(game.name, FECHA_SELECCIONADA);
