@@ -1507,7 +1507,9 @@ const INVENTARIO_TOTAL = {
   'Tobogán Obstáculo Aventura Espacial': 1,
   'Tobogán Obstáculo Dino Volcán': 1,
   'Tobogán Obstáculo Titán': 1,
-  'Toro en Llamas': 1,
+  'Tobogán Obstáculo Rayo': 1,
+  'Robot Acuático': 1,
+  'Tobogán Robot': 1,
   'Avioncitos Voladores': 1,
   'Carrusel Pony': 1,
   'Taca Taca': 4,
@@ -1528,10 +1530,19 @@ const MAPEO_JUEGOS = {
   'volcán': 'Tobogán Obstáculo Dino Volcán',
   'titan': 'Tobogán Obstáculo Titán',
   'titán': 'Tobogán Obstáculo Titán',
-  'toro': 'Toro en Llamas',
-  'toro mecanico': 'Toro en Llamas',
-  'toro mecánico': 'Toro en Llamas',
-  'toro en llamas': 'Toro en Llamas',
+  'rayo': 'Tobogán Obstáculo Rayo',
+  'obstaculo rayo': 'Tobogán Obstáculo Rayo',
+  'robot acuatico': 'Robot Acuático',
+  'acuatico': 'Robot Acuático',
+  'robot con agua': 'Robot Acuático',
+  'tobogan robot': 'Tobogán Robot',
+  'robot sin agua': 'Tobogán Robot',
+  'robot sin acuatico': 'Tobogán Robot',
+  'robot seco': 'Tobogán Robot',
+  'tobogan robot pelotitas': 'Tobogán Robot Pelotitas',
+  'robot pelotitas': 'Tobogán Robot Pelotitas',
+  'robot con pelotitas': 'Tobogán Robot Pelotitas',
+  'robot pelotas': 'Tobogán Robot Pelotitas',
   'danger': 'Tobogán Obstáculo Danger',
   'obstaculo danger': 'Tobogán Obstáculo Danger',
   'obstáculo danger': 'Tobogán Obstáculo Danger',
@@ -1587,7 +1598,7 @@ const GAMES = [
     type: 'Inflable',
     cat: 'inflable',
     desc: 'El tobogán doble castillo Kids es la magia y diversión que tus peques merecen. Déjalos vivir una aventura llena de risas y emoción.',
-    price: 40000,
+    price: 45000,
     fotos: [
       'imagen/doble_castillo_1_marcado.jpg',
       'imagen/doble_castillo_2_marcado.jpg',
@@ -1600,7 +1611,7 @@ const GAMES = [
     type: 'Inflable',
     cat: 'inflable',
     desc: 'Con el Tobogán Gold cada celebración es un golazo de diversión. Perfecto para tus momentos más especiales, donde la emoción no para.',
-    price: 50000,
+    price: 55000,
     fotos: [
       'imagen/gold_05_pirata_AKIMEL.jpg',
       'imagen/gold_06_vereda_AKIMEL.jpg',
@@ -1614,7 +1625,7 @@ const GAMES = [
     type: 'Inflable',
     cat: 'inflable',
     desc: 'Nuestros toboganes PRO son la verdadera sensación. La nueva era de la diversión ha llegado, y esta aventura es para niños grandes y chicos.',
-    price: 60000,
+    price: 65000,
     fotos: [
       'imagen/pro_02_cancha_frente_AKIMEL.jpg',
       'imagen/pro_03_edificio_AKIMEL.jpg',
@@ -1628,7 +1639,7 @@ const GAMES = [
     type: 'Inflable',
     cat: 'inflable',
     desc: 'Siente la velocidad con nuestro Tobogán Ferrari. Una experiencia llena de adrenalina con este espectacular inflable que entrega mucha diversión.',
-    price: 70000,
+    price: 75000,
     fotos: [
       'imagen/01_F1_reja_AKIMEL.jpg',
       'imagen/03_F1_arboles_AKIMEL.jpg',
@@ -1638,11 +1649,22 @@ const GAMES = [
     ]
   },
   {
+    name: 'Tobogán Robot',
+    type: 'Inflable',
+    cat: 'inflable',
+    desc: 'Nuestro gigante Robot en versión sin agua: un espectacular tobogán de 6 metros de alto, lleno de adrenalina para lanzarse y disfrutar sin parar. Alto 6 m · Largo 8 m · Ancho 3,20 m.',
+    price: 78000,
+    fotos: [
+      'imagen/tobogan_robot_1_akimel.jpg',
+      'imagen/tobogan_robot_2_akimel.jpg'
+    ]
+  },
+  {
     name: 'Tobogán Mario Bross',
     type: 'Inflable',
     cat: 'inflable',
     desc: 'El tobogán Mario Bross de la familia AKIMEL trae diversión al máximo. No dejes pasar la oportunidad de tener esta aventura en tu evento.',
-    price: 75000,
+    price: 80000,
     fotos: [
       'imagen/mario_01_pasto_montana_AKIMEL.jpg',
       'imagen/mario_02_gimnasio_AKIMEL.jpg',
@@ -1656,7 +1678,7 @@ const GAMES = [
     type: 'Inflable',
     cat: 'inflable',
     desc: 'Deslízate hacia la acción con el increíble Tobogán Marvel. Todos tus héroes favoritos te acompañarán en una aventura épica llena de emoción.',
-    price: 75000,
+    price: 80000,
     fotos: [
       'imagen/marvel_01_pasto_AKIMEL.jpg',
       'imagen/marvel_02_pasto_montana_AKIMEL.jpg',
@@ -1670,7 +1692,7 @@ const GAMES = [
     type: 'Inflable',
     cat: 'inflable',
     desc: 'Nuestro impresionante dinosaurio inflable te entrega una experiencia llena de adrenalina que dejará a todos asombrados. No te pierdas la oportunidad.',
-    price: 80000,
+    price: 85000,
     fotos: [
       'imagen/dinopoder_1_marcado.jpg',
       'imagen/dinopoder_2_marcado.jpg',
@@ -1684,7 +1706,7 @@ const GAMES = [
     type: 'Inflable',
     cat: 'inflable',
     desc: 'Nuestro impresionante Pirata inflable te entrega una experiencia llena de adrenalina. Aventura pirata en alta mar buscando el tesoro.',
-    price: 80000,
+    price: 85000,
     fotos: [
       'imagen/pirata_01_cancha_AKIMEL.jpg',
       'imagen/pirata_02_cielo_AKIMEL.jpg',
@@ -1698,9 +1720,20 @@ const GAMES = [
     type: 'Inflable',
     cat: 'inflable',
     desc: 'Un mágico mundo de caramelos, paletas y bastones de dulce lleno de color y diversión. Alto 8 m · Largo 7,5 m · Ancho 4 m.',
-    price: 80000,
+    price: 90000,
     fotos: [
       'imagen/dulcelandia_akimel.jpg'
+    ]
+  },
+  {
+    name: 'Robot Acuático',
+    type: 'Inflable',
+    cat: 'inflable',
+    desc: 'Un espectacular tobogán inflable acuático de 6 metros de alto, lleno de adrenalina para lanzarse, refrescarse y disfrutar sin parar. Alto 6 m · Largo 8 m · Ancho 3,20 m.',
+    price: 100000,
+    fotos: [
+      'imagen/robot_acuatico_1_akimel.jpg',
+      'imagen/robot_acuatico_2_akimel.jpg'
     ]
   },
   {
@@ -1762,13 +1795,14 @@ const GAMES = [
     ]
   },
   {
-    name: 'Toro en Llamas',
+    name: 'Tobogán Obstáculo Rayo',
     type: 'Inflable',
     cat: 'inflable',
-    desc: '¿Quién aguanta más arriba del toro? Toro mecánico con colchoneta inflable de seguridad, pura adrenalina y risas para grandes y chicos. Arriendo por 4 horas.',
-    price: 135000,
+    desc: 'Tobogán obstáculo de 13 metros de largo, una carrera a toda velocidad que combina saltos, rampas y zonas de competencia. Alto 5,5 m · Largo 13 m · Ancho 4 m.',
+    price: 115000,
     fotos: [
-      'imagen/toro_en_llamas_akimel.jpg'
+      'imagen/obstaculo_rayo_1_akimel.jpg',
+      'imagen/obstaculo_rayo_2_akimel.jpg'
     ]
   },
   {
@@ -2031,19 +2065,23 @@ function estandarizarEquipos(equipos) {
   if (!equipos) return [];
   let texto = equipos.replace(/\s+y\s+/gi, ',').replace(/\s*\+\s*/g, ',');
   const partes = texto.split(/[,\/]/);
-  const keysOrdenados = Object.keys(MAPEO_JUEGOS).sort((a, b) => b.length - a.length);
+  // Se compara sin tildes: el app guarda "Tobogán Robot", "Robot Acuático", etc.
+  const sinTilde = s => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+  const mapa = {};
+  for (const k in MAPEO_JUEGOS) mapa[sinTilde(k)] = MAPEO_JUEGOS[k];
+  const keysOrdenados = Object.keys(mapa).sort((a, b) => b.length - a.length);
   const resultado = [];
   for (let parte of partes) {
-    parte = parte.trim().toLowerCase();
+    parte = sinTilde(parte);
     if (!parte) continue;
     let encontrado = null;
     for (const k of keysOrdenados) {
-      if (parte === k) { encontrado = MAPEO_JUEGOS[k]; break; }
+      if (parte === k) { encontrado = mapa[k]; break; }
     }
     if (!encontrado) {
       for (const k of keysOrdenados) {
         const re = new RegExp('(?:^|\\s)' + k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?:\\s|$)', 'i');
-        if (re.test(parte)) { encontrado = MAPEO_JUEGOS[k]; break; }
+        if (re.test(parte)) { encontrado = mapa[k]; break; }
       }
     }
     if (encontrado) resultado.push(encontrado);
@@ -2066,12 +2104,20 @@ function calcularUsadosFecha(fechaStr) {
   return usados;
 }
 
+// ===== UNIDADES COMPARTIDAS =====
+// Mismo inflable que se arrienda de distintas formas: si una está tomada, las otras también.
+// (Pelotitas no se muestra en la web, pero si se arrienda ocupa el robot.)
+const GRUPOS_UNIDAD = [
+  ['Robot Acuático', 'Tobogán Robot', 'Tobogán Robot Pelotitas']
+];
+
 // ===== VERIFICAR DISPONIBILIDAD DE UN JUEGO EN FECHA SELECCIONADA =====
 function juegoDisponible(nombreJuego) {
   if (!FECHA_SELECCIONADA) return true; // Sin fecha = mostrar todos
   const usados = calcularUsadosFecha(FECHA_SELECCIONADA);
   const total = INVENTARIO_TOTAL[nombreJuego] || 1;
-  const ocupados = usados[nombreJuego] || 0;
+  const grupo = GRUPOS_UNIDAD.find(g => g.includes(nombreJuego)) || [nombreJuego];
+  const ocupados = grupo.reduce((s, n) => s + (usados[n] || 0), 0);
   return (total - ocupados) > 0;
 }
 
